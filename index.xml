@@ -24,11 +24,20 @@ It makes use of a variety of open source projects including:
     </item>
     
     <item>
+      <title>Tutorial</title>
+      <link>https://chenkangyang.github.io/post/tutorial/</link>
+      <pubDate>Sat, 04 May 2019 10:16:20 +0800</pubDate>
+      
+      <guid>https://chenkangyang.github.io/post/tutorial/</guid>
+      <description>&lt;p&gt;建站教程&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>Construction Record</title>
-      <link>https://chenkangyang.github.io/post/first/</link>
+      <link>https://chenkangyang.github.io/post/construct-record/</link>
       <pubDate>Fri, 03 May 2019 23:41:42 +0800</pubDate>
       
-      <guid>https://chenkangyang.github.io/post/first/</guid>
+      <guid>https://chenkangyang.github.io/post/construct-record/</guid>
       <description>&lt;p&gt;记录该站点的装修记录&lt;/p&gt;</description>
     </item>
     
