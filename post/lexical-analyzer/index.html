@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>使用c语言实现一个词法分析器</title>
+
+  
+  
+  <link href="//cdn.jsdelivr.net" rel="dns-prefetch">
+  <link href="//cdnjs.cloudflare.com" rel="dns-prefetch">
+  
+  <link href="//at.alicdn.com" rel="dns-prefetch">
+  
+  <link href="//fonts.googleapis.com" rel="dns-prefetch">
+  <link href="//fonts.gstatic.com" rel="dns-prefetch">
+  
+  
+  
+  
+  
+
+  
+
+  
+  <meta name="author" content="Author Name">
+  <meta name="description" content="c语言实现一个c语言的词法分析器，对单词进行识别和编码
+">
+
+  
+  
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@gohugoio">
+    <meta name="twitter:title" content="使用c语言实现一个词法分析器">
+    <meta name="twitter:description" content="c语言实现一个c语言的词法分析器，对单词进行识别和编码
+">
+    <meta name="twitter:image" content="https://chenkangyang.github.io/images/cover.jpg">
+  
+
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="使用c语言实现一个词法分析器">
+  <meta property="og:description" content="c语言实现一个c语言的词法分析器，对单词进行识别和编码
+">
+  <meta property="og:url" content="https://chenkangyang.github.io/post/lexical-analyzer/">
+  <meta property="og:image" content="https://chenkangyang.github.io/images/cover.jpg">
+
+
+
+
+<meta name="generator" content="Hugo 0.52">
+
+
+<link rel="canonical" href="https://chenkangyang.github.io/post/lexical-analyzer/">
+
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="format-detection" content="telephone=no,email=no,adress=no">
+<meta http-equiv="Cache-Control" content="no-transform">
+
+
+<meta name="robots" content="index,follow">
+<meta name="referrer" content="origin-when-cross-origin">
+<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc">
+<meta name="msvalidate.01" content="22596E34341DD1D17D6022C44647E587">
+
+
+
+
+
+<meta name="theme-color" content="#02b875">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Alex&#39;s Blog">
+<meta name="msapplication-tooltip" content="Alex&#39;s Blog">
+<meta name='msapplication-navbutton-color' content="#02b875">
+<meta name="msapplication-TileColor" content="#02b875">
+<meta name="msapplication-TileImage" content="/icons/icon-144x144.png">
+<link rel="icon" href="https://chenkangyang.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://chenkangyang.github.io/icons/icon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://chenkangyang.github.io/icons/icon-32x32.png">
+<link rel="icon" sizes="192x192" href="https://chenkangyang.github.io/icons/icon-192x192.png">
+<link rel="apple-touch-icon" href="https://chenkangyang.github.io/icons/icon-152x152.png">
+<link rel="manifest" href="https://chenkangyang.github.io/manifest.json">
+
+
+<link rel="preload" href="https://chenkangyang.github.io/styles/main-rendered.min.css" as="style">
+
+
+<link rel="preload" href="https://fonts.googleapis.com/css?family=Lobster" as="style">
+<link rel="preload" href="https://chenkangyang.github.io/images/avatar.png" as="image">
+<link rel="preload" href="https://chenkangyang.github.io/images/grey-prism.svg" as="image">
+
+
+<style>
+  body {
+    background: rgb(244, 243, 241) url('/images/grey-prism.svg') repeat fixed;
+  }
+</style>
+<link rel="stylesheet" href="https://chenkangyang.github.io/styles/main-rendered.min.css">
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.2/dist/medium-zoom.min.js"></script>
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/video.js@7.3.0/dist/video-js.min.css">
+
+
+
+  
+  
+<!--[if lte IE 8]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/videojs-ie8@1.1.2/dist/videojs-ie8.min.js"></script>
+<![endif]-->
+
+<!--[if lte IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/eligrey-classlist-js-polyfill@1.2.20180112/classList.min.js"></script>
+<![endif]-->
+
+
+</head>
+  <body>
+    <div class="suspension">
+      <a role="button" aria-label="Go to top" title="Go to top" class="to-top is-hide"><span class="icon icon-up" aria-hidden="true"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://chenkangyang.github.io/images/avatar.png" alt="Avatar">
+  
+  <h2 class="title">Alex&#39;s Blog</h2>
+  
+  <p class="subtitle">~ Explore the world. ~</p>
+  <button class="menu-toggle" type="button" aria-label="Main Menu" aria-expanded="false" tab-index="0">
+    <span class="icon icon-menu" aria-hidden="true"></span>
+  </button>
+
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+          
+          
+           is-active">
+          <a href="https://chenkangyang.github.io/">Home</a>
+        </li>
+      
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://github.com/chenkangyang">Github</a>
+        </li>
+      
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://chenkangyang.github.io/tags/">Tags</a>
+        </li>
+      
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://chenkangyang.github.io/about/">About</a>
+        </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list"><li class="social-item">
+          <a href="mailto:chenkangyang98@gmail.com" title="Email" aria-label="Email">
+            <span class="icon icon-email" aria-hidden="true"></span>
+          </a>
+        </li><li class="social-item">
+          <a href="//github.com/chenkangyang" rel="me" title="GitHub" aria-label="GitHub">
+	    <span class="icon icon-github" aria-hidden="true"></span>
+          </a>
+        </li><li class="social-item">
+          <a href="//weibo.com/%e6%b8%85%e6%b5%81%e5%a6%82%e6%88%91" rel="me" title="Weibo" aria-label="Weibo">
+            <span class="icon icon-weibo" aria-hidden="true"></span>
+          </a>
+        </li><li class="social-item">
+          <a href="https://chenkangyang.github.io/images/qrcode.jpeg" rel="me" title="Wechat" aria-label="Wechat">
+            <span class="icon icon-wechat" aria-hidden="true"></span>
+          </a>
+        </li></ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">使用c语言实现一个词法分析器</h1>
+      <p class="post-meta">@Author Name · May 4, 2019 · 2 min read</p>
+    </header>
+    <article class="post-content"><p>c语言实现一个c语言的词法分析器，对单词进行识别和编码</p>
+
+<h3 id="要求">要求</h3>
+
+<pre><code>                   +-------+                      +--------+
+-- source code --&gt; | lexer | --&gt; token stream --&gt; | parser | --&gt; assembly
+                   +-------+                      +--------+
+</code></pre>
+
+<p>设计并实现一个词法分析器，实现对指定位置的类C语言源程序文本文件的读取，并能够对该源程序中的所有单词进行分类，指出其所属类型，实现简单的词法分析操作。
+- 允许用户自己输入源程序并保存为文件
+- 系统能够输出经过预处理后的源程序（去掉注释、换行、空格等）
+- 能够将该源程序中所有的单词根据其所属类型（整数、保留字、运算符、标识符等。定义的类C语言中的标识符只能以字母或下划线开头）进行归类显示，例如：识别保留字：if、int、for、while、do、return、break、continue等，其他的都识别为标识符；常数为无符号整形数；运算符包括：+、-、*、/、=、&gt;、&lt;、&gt;=、&lt;=、!=等；分隔符包括：,、;、{、}、(、)等。
+- 实现文件的读取操作，而不是将文本以字符串形式预存于程序中。文本内容为待分析的类C语言程序。</p>
+
+<p>例如下面为一段C语言源程序：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">main()
+{
+<span style="color:#66d9ef">int</span>  a,b;
+a <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>;
+   b <span style="color:#f92672">=</span> a <span style="color:#f92672">+</span> <span style="color:#ae81ff">20</span>;
+}</code></pre></div>
+<p>要求输出如下:(可以自行分类)</p>
+
+<pre><code>（1，’main’）
+（5，’（’）
+（5，’）’）
+（5，’{ ’）
+（1，’int’）
+（2，’a’）
+（5，’,’）
+（2，’b’）
+（5，’;’）
+（2，’a’）
+（4，’=’）
+（3，’10’）
+（5，’;’）
+（2，’b’）
+（4，’=’）
+（2，’a’）
+（4，’+’）
+（3，’20’）
+（5，’;’）
+（5，’}’）
+</code></pre>
+
+<h3 id="设计">设计</h3>
+
+<ol>
+<li>完成文件读取</li>
+<li>文本识别
+识别为5类符号：标识符、保留字、常数、运算符、界符
+定义5类符号的集合为：
+1：保留字(32)
+auto       break    case     char        const      continue<br />
+default    do       double   else        enum       extern<br />
+float      for      goto     if          int        long<br />
+register   return   short    signed      sizeof     static<br />
+struct     switch   typedef  union       unsigned   void<br />
+volatile    while
+2：标识符   letter(letter | digit)*  无穷集
+3：常数(无符号整形数)    (digit)+  无穷集
+4：运算符    &lt;、&lt;=、&gt;、&gt;=、=、+、-、*、/、^、等
+5：界符     ‘/*’、‘//’、 () { } [ ] &ldquo; &rdquo;  &lsquo; 等<br /></li>
+<li>状态转换图
+<img src="http://blog.nuptalex.xyz/词法分析状态转换图.png" alt="词法分析状态转换图.png" /></li>
+</ol>
+
+<h3 id="编码">编码</h3>
+
+<ul>
+<li>创建保留字表、界符表、运算符表、标识符表</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">//全局变量, 保留字表
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">char</span> reserveWordTbl[<span style="color:#ae81ff">32</span>][<span style="color:#ae81ff">20</span>] <span style="color:#f92672">=</span> {
+    <span style="color:#e6db74">&#34;auto&#34;</span>, <span style="color:#e6db74">&#34;break&#34;</span>, <span style="color:#e6db74">&#34;case&#34;</span>, <span style="color:#e6db74">&#34;char&#34;</span>, <span style="color:#e6db74">&#34;const&#34;</span>, <span style="color:#e6db74">&#34;continue&#34;</span>,
+    <span style="color:#e6db74">&#34;default&#34;</span>, <span style="color:#e6db74">&#34;do&#34;</span>, <span style="color:#e6db74">&#34;double&#34;</span>, <span style="color:#e6db74">&#34;else&#34;</span>, <span style="color:#e6db74">&#34;enum&#34;</span>, <span style="color:#e6db74">&#34;extern&#34;</span>,
+    <span style="color:#e6db74">&#34;float&#34;</span>, <span style="color:#e6db74">&#34;for&#34;</span>, <span style="color:#e6db74">&#34;goto&#34;</span>, <span style="color:#e6db74">&#34;if&#34;</span>, <span style="color:#e6db74">&#34;int&#34;</span>, <span style="color:#e6db74">&#34;long&#34;</span>,
+    <span style="color:#e6db74">&#34;register&#34;</span>, <span style="color:#e6db74">&#34;return&#34;</span>, <span style="color:#e6db74">&#34;short&#34;</span>, <span style="color:#e6db74">&#34;signed&#34;</span>, <span style="color:#e6db74">&#34;sizeof&#34;</span>, <span style="color:#e6db74">&#34;static&#34;</span>,
+    <span style="color:#e6db74">&#34;struct&#34;</span>, <span style="color:#e6db74">&#34;switch&#34;</span>, <span style="color:#e6db74">&#34;typedef&#34;</span>, <span style="color:#e6db74">&#34;union&#34;</span>, <span style="color:#e6db74">&#34;unsigned&#34;</span>, <span style="color:#e6db74">&#34;void&#34;</span>,
+    <span style="color:#e6db74">&#34;volatile&#34;</span>, <span style="color:#e6db74">&#34;while&#34;</span>
+};
+<span style="color:#75715e">//运算符表, 根据需要可以自行增加
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">char</span> operatorTbl[<span style="color:#ae81ff">10</span>][<span style="color:#ae81ff">5</span>]<span style="color:#f92672">=</span>{
+    <span style="color:#e6db74">&#34;&lt;&#34;</span>, <span style="color:#e6db74">&#34;&lt;=&#34;</span>, <span style="color:#e6db74">&#34;&gt;&#34;</span>, <span style="color:#e6db74">&#34;&gt;=&#34;</span>, <span style="color:#e6db74">&#34;=&#34;</span>, <span style="color:#e6db74">&#34;+&#34;</span>, <span style="color:#e6db74">&#34;-&#34;</span>, <span style="color:#e6db74">&#34;*&#34;</span>, <span style="color:#e6db74">&#34;/&#34;</span>, <span style="color:#e6db74">&#34;^&#34;</span>
+};
+
+<span style="color:#75715e">// 界符
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">char</span> delimiterTbl[<span style="color:#ae81ff">14</span>][<span style="color:#ae81ff">10</span>]<span style="color:#f92672">=</span>{
+    <span style="color:#e6db74">&#34;#&#34;</span>, <span style="color:#e6db74">&#34;/*&#34;</span>, <span style="color:#e6db74">&#34;*/&#34;</span>, <span style="color:#e6db74">&#34;//&#34;</span>, <span style="color:#e6db74">&#34;(&#34;</span>, <span style="color:#e6db74">&#34;)&#34;</span>, <span style="color:#e6db74">&#34;{&#34;</span>, <span style="color:#e6db74">&#34;}&#34;</span>, 
+    <span style="color:#e6db74">&#34;[&#34;</span>, <span style="color:#e6db74">&#34;]&#34;</span>, <span style="color:#e6db74">&#34;,&#34;</span>, <span style="color:#e6db74">&#34;;&#34;</span>, <span style="color:#e6db74">&#34;&#34;&#34;, &#34;</span><span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#e6db74">&#34;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#e6db74">};</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#e6db74">static  char identifierTbl[1000][50]={&#34;&#34;}; //标识符表</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span></code></pre></div>
+<p>考虑使用 &ldquo;string.h&rdquo; 中的函数做字符串匹配</p>
+
+<ul>
+<li>定义各符号集的识别函数及编译预处理函数</li>
+<li>定义分析子程序，使用以上定义的函数</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">//词的结构，二元组形式（单词种别，单词自身的值）
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span>
+{
+	<span style="color:#66d9ef">int</span> typenum; <span style="color:#75715e">//单词种别
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span> word;
+}WORD;
+
+<span style="color:#66d9ef">int</span> searchReserve(<span style="color:#66d9ef">char</span> reserveWord[][<span style="color:#ae81ff">20</span>], <span style="color:#66d9ef">char</span> s[])
+<span style="color:#66d9ef">bool</span> IsLetter(<span style="color:#66d9ef">char</span> letter)
+<span style="color:#66d9ef">bool</span> IsDigit(<span style="color:#66d9ef">char</span> digit)
+<span style="color:#66d9ef">void</span> filterResource(<span style="color:#66d9ef">char</span> r[], <span style="color:#66d9ef">int</span> pProject)
+<span style="color:#66d9ef">void</span> Scanner(<span style="color:#66d9ef">int</span> <span style="color:#f92672">&amp;</span>syn, <span style="color:#66d9ef">char</span> resourceProject[], <span style="color:#66d9ef">char</span> token[], <span style="color:#66d9ef">int</span> <span style="color:#f92672">&amp;</span>pProject)
+</code></pre></div>
+<ul>
+<li>主程序写入文件，输入源程序直到遇到$
+
+<ul>
+<li>存储源程序到文件</li>
+<li>词法分析</li>
+<li>输出各词对应的二元组</li>
+</ul></li>
+</ul>
+
+<h4 id="完整程序">完整程序</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++">
+</code></pre></div></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://chenkangyang.github.io/tags/%E6%B1%87%E7%BC%96"><span class="tag">汇编</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  
+<footer class="site-footer">
+  <p>© 2017-2019 Alex&#39;s Blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank" rel="noopener">Nuo</a>.</p>
+  
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/smooth-scroll@15.0.0/dist/smooth-scroll.min.js"></script>
+
+
+
+<script async src="https://cdn.jsdelivr.net/npm/video.js@7.3.0/dist/video.min.js"></script>
+
+
+
+
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    },
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+
+
+<script src="https://chenkangyang.github.io/scripts/index.min.js"></script>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('\/service-worker.js').then(function() {
+      console.log('[ServiceWorker] Registered');
+    });
+  }
+</script>
+
+
+
+
+
+
+
+
+  </body>
+</html>

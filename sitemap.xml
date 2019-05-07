@@ -8,6 +8,16 @@
   </url>
   
   <url>
+    <loc>https://chenkangyang.github.io/post/react_demo/</loc>
+    <lastmod>2019-05-07T17:50:32+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://chenkangyang.github.io/post/lexical-analyzer/</loc>
+    <lastmod>2019-05-04T20:37:05+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://chenkangyang.github.io/post/tutorial/</loc>
     <lastmod>2019-05-04T10:16:20+08:00</lastmod>
   </url>
@@ -40,14 +50,14 @@
   </url>
   
   <url>
-    <loc>https://chenkangyang.github.io/tags/markdown/</loc>
-    <lastmod>2014-07-17T00:00:00+00:00</lastmod>
+    <loc>https://chenkangyang.github.io/post/</loc>
+    <lastmod>2019-05-07T17:50:32+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://chenkangyang.github.io/post/</loc>
-    <lastmod>2019-05-04T10:16:20+08:00</lastmod>
+    <loc>https://chenkangyang.github.io/tags/react/</loc>
+    <lastmod>2019-05-07T17:50:32+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -58,8 +68,8 @@
   </url>
   
   <url>
-    <loc>https://chenkangyang.github.io/tags/theme/</loc>
-    <lastmod>2014-07-17T00:00:00+00:00</lastmod>
+    <loc>https://chenkangyang.github.io/tags/%E6%B1%87%E7%BC%96/</loc>
+    <lastmod>2019-05-04T20:37:05+08:00</lastmod>
     <priority>0</priority>
   </url>
   

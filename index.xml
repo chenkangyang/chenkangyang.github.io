@@ -18,9 +18,25 @@
       <pubDate>Fri, 03 May 2019 23:27:31 +0800</pubDate>
       
       <guid>https://chenkangyang.github.io/about/</guid>
-      <description>Hugo is a static site engine written in Go.
-It makes use of a variety of open source projects including:
- Cobra Viper J Walter Weatherman Cast  Learn more and contribute on GitHub.</description>
+      <description>Thinking &amp;hellip;</description>
+    </item>
+    
+    <item>
+      <title>React 快速入门</title>
+      <link>https://chenkangyang.github.io/post/react_demo/</link>
+      <pubDate>Tue, 07 May 2019 17:50:32 +0800</pubDate>
+      
+      <guid>https://chenkangyang.github.io/post/react_demo/</guid>
+      <description>&lt;p&gt;初次使用React&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>使用c语言实现一个词法分析器</title>
+      <link>https://chenkangyang.github.io/post/lexical-analyzer/</link>
+      <pubDate>Sat, 04 May 2019 20:37:05 +0800</pubDate>
+      
+      <guid>https://chenkangyang.github.io/post/lexical-analyzer/</guid>
+      <description>&lt;p&gt;c语言实现一个c语言的词法分析器，对单词进行识别和编码&lt;/p&gt;</description>
     </item>
     
     <item>

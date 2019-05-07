@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>React 快速入门</title>
+
+  
+  
+  <link href="//cdn.jsdelivr.net" rel="dns-prefetch">
+  <link href="//cdnjs.cloudflare.com" rel="dns-prefetch">
+  
+  <link href="//at.alicdn.com" rel="dns-prefetch">
+  
+  <link href="//fonts.googleapis.com" rel="dns-prefetch">
+  <link href="//fonts.gstatic.com" rel="dns-prefetch">
+  
+  
+  
+  
+  
+
+  
+
+  
+  
+  <meta name="description" content="初次使用React
+">
+
+  
+  
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@gohugoio">
+    <meta name="twitter:title" content="React 快速入门">
+    <meta name="twitter:description" content="初次使用React
+">
+    <meta name="twitter:image" content="https://chenkangyang.github.io/media/posts/react_demo/cover.png">
+  
+
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="React 快速入门">
+  <meta property="og:description" content="初次使用React
+">
+  <meta property="og:url" content="https://chenkangyang.github.io/post/react_demo/">
+  <meta property="og:image" content="https://chenkangyang.github.io/media/posts/react_demo/cover.png">
+
+
+
+
+<meta name="generator" content="Hugo 0.52">
+
+
+<link rel="canonical" href="https://chenkangyang.github.io/post/react_demo/">
+
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="format-detection" content="telephone=no,email=no,adress=no">
+<meta http-equiv="Cache-Control" content="no-transform">
+
+
+<meta name="robots" content="index,follow">
+<meta name="referrer" content="origin-when-cross-origin">
+<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc">
+<meta name="msvalidate.01" content="22596E34341DD1D17D6022C44647E587">
+
+
+
+
+
+<meta name="theme-color" content="#02b875">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Alex&#39;s Blog">
+<meta name="msapplication-tooltip" content="Alex&#39;s Blog">
+<meta name='msapplication-navbutton-color' content="#02b875">
+<meta name="msapplication-TileColor" content="#02b875">
+<meta name="msapplication-TileImage" content="/icons/icon-144x144.png">
+<link rel="icon" href="https://chenkangyang.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://chenkangyang.github.io/icons/icon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://chenkangyang.github.io/icons/icon-32x32.png">
+<link rel="icon" sizes="192x192" href="https://chenkangyang.github.io/icons/icon-192x192.png">
+<link rel="apple-touch-icon" href="https://chenkangyang.github.io/icons/icon-152x152.png">
+<link rel="manifest" href="https://chenkangyang.github.io/manifest.json">
+
+
+<link rel="preload" href="https://chenkangyang.github.io/styles/main-rendered.min.css" as="style">
+
+
+<link rel="preload" href="https://fonts.googleapis.com/css?family=Lobster" as="style">
+<link rel="preload" href="https://chenkangyang.github.io/images/avatar.png" as="image">
+<link rel="preload" href="https://chenkangyang.github.io/images/grey-prism.svg" as="image">
+
+
+<style>
+  body {
+    background: rgb(244, 243, 241) url('/images/grey-prism.svg') repeat fixed;
+  }
+</style>
+<link rel="stylesheet" href="https://chenkangyang.github.io/styles/main-rendered.min.css">
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.2/dist/medium-zoom.min.js"></script>
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/video.js@7.3.0/dist/video-js.min.css">
+
+
+
+  
+  
+<!--[if lte IE 8]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/videojs-ie8@1.1.2/dist/videojs-ie8.min.js"></script>
+<![endif]-->
+
+<!--[if lte IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/eligrey-classlist-js-polyfill@1.2.20180112/classList.min.js"></script>
+<![endif]-->
+
+
+</head>
+  <body>
+    <div class="suspension">
+      <a role="button" aria-label="Go to top" title="Go to top" class="to-top is-hide"><span class="icon icon-up" aria-hidden="true"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://chenkangyang.github.io/images/avatar.png" alt="Avatar">
+  
+  <h2 class="title">Alex&#39;s Blog</h2>
+  
+  <p class="subtitle">~ Explore the world. ~</p>
+  <button class="menu-toggle" type="button" aria-label="Main Menu" aria-expanded="false" tab-index="0">
+    <span class="icon icon-menu" aria-hidden="true"></span>
+  </button>
+
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+          
+          
+           is-active">
+          <a href="https://chenkangyang.github.io/">Home</a>
+        </li>
+      
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://github.com/chenkangyang">Github</a>
+        </li>
+      
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://chenkangyang.github.io/tags/">Tags</a>
+        </li>
+      
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://chenkangyang.github.io/about/">About</a>
+        </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list"><li class="social-item">
+          <a href="mailto:chenkangyang98@gmail.com" title="Email" aria-label="Email">
+            <span class="icon icon-email" aria-hidden="true"></span>
+          </a>
+        </li><li class="social-item">
+          <a href="//github.com/chenkangyang" rel="me" title="GitHub" aria-label="GitHub">
+	    <span class="icon icon-github" aria-hidden="true"></span>
+          </a>
+        </li><li class="social-item">
+          <a href="//weibo.com/%e6%b8%85%e6%b5%81%e5%a6%82%e6%88%91" rel="me" title="Weibo" aria-label="Weibo">
+            <span class="icon icon-weibo" aria-hidden="true"></span>
+          </a>
+        </li><li class="social-item">
+          <a href="https://chenkangyang.github.io/images/qrcode.jpeg" rel="me" title="Wechat" aria-label="Wechat">
+            <span class="icon icon-wechat" aria-hidden="true"></span>
+          </a>
+        </li></ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">React 快速入门</h1>
+      <p class="post-meta">@Kangyang Chen · May 7, 2019 · 8 min read</p>
+    </header>
+    <article class="post-content"><p>初次使用React</p>
+
+<blockquote>
+<p>跟着<a href="https://reactjs.org/tutorial/tutorial.html#setup-option-2-local-development-environment">官方教程</a>过一遍</p>
+</blockquote>
+
+<p>[TOC]</p>
+
+<h2 id="提前准备">提前准备</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-zsh" data-lang="zsh">brew install node
+npm install -g cnpm --registry<span style="color:#f92672">=</span>https://registry.npm.taobao.org</code></pre></div>
+<p>这就安装好node和npm了，更换npm镜像为<a href="https://npm.taobao.org/">淘宝npm镜像</a>，直接使用cnpm代替npm好了</p>
+
+<p>Follow the <a href="https://reactjs.org/docs/create-a-new-react-app.html#create-react-app">installation instructions for Create React App</a> to make a new project.</p>
+
+<h2 id="构建项目">构建项目</h2>
+
+<p><code>create-react-app</code>这个模块是全局安装，npx 可以运行它，而且不进行全局安装。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">npx create-react-app react_demo</code></pre></div>
+<blockquote>
+<p>上面代码运行时，npx 将<code>create-react-app</code>下载到一个临时目录，使用以后再删除。所以，以后再次执行上面的命令，会重新下载<code>create-react-app</code>。</p>
+
+<p><code>npx</code> on the first line is not a typo — it’s a <a href="https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b">package runner tool that comes with npm 5.2+</a>.</p>
+</blockquote>
+
+<p>关于<code>npx</code>可以看<a href="http://www.ruanyifeng.com/blog/2019/02/npx.html">阮一峰的npx使用教程</a></p>
+
+<p>安装完毕后显示：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Success! Created react_demo at /Users/alex/Documents/projects/react_demo
+Inside that directory, you can run several commands:
+
+  npm start
+    Starts the development server.
+
+  npm run build
+    Bundles the app into static files <span style="color:#66d9ef">for</span> production.
+
+  npm test
+    Starts the test runner.
+
+  npm run eject
+    Removes this tool and copies build dependencies, configuration files
+    and scripts into the app directory. If you <span style="color:#66d9ef">do</span> this, you can’t go back!
+
+We suggest that you begin by typing:
+
+  cd react_demo
+  npm start
+
+Happy hacking!</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cd react_demo
+npm start
+
+cd react_demo
+cd src
+
+<span style="color:#75715e"># If you&#39;re using a Mac or Linux:</span>
+rm -f *
+
+<span style="color:#75715e"># Or, if you&#39;re on Windows:</span>
+del *
+
+<span style="color:#75715e"># Then, switch back to the project folder</span>
+cd ..</code></pre></div>
+<ol>
+<li>Add a file named <code>index.css</code> in the <code>src/</code> folder with <a href="https://codepen.io/gaearon/pen/oWWQNa?editors=0100">this CSS code</a>.</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css">   <span style="color:#f92672">body</span> {
+     <span style="color:#66d9ef">font</span>: <span style="color:#ae81ff">14</span><span style="color:#66d9ef">px</span> <span style="color:#e6db74">&#34;Century Gothic&#34;</span>, Futura, <span style="color:#66d9ef">sans-serif</span>;
+     <span style="color:#66d9ef">margin</span>: <span style="color:#ae81ff">20</span><span style="color:#66d9ef">px</span>;
+   }
+   
+   <span style="color:#f92672">ol</span><span style="color:#f92672">,</span> <span style="color:#f92672">ul</span> {
+     <span style="color:#66d9ef">padding-left</span>: <span style="color:#ae81ff">30</span><span style="color:#66d9ef">px</span>;
+   }
+   
+   .<span style="color:#a6e22e">board-row</span>:<span style="color:#a6e22e">after</span> {
+     <span style="color:#66d9ef">clear</span>: <span style="color:#66d9ef">both</span>;
+     <span style="color:#66d9ef">content</span>: <span style="color:#e6db74">&#34;&#34;</span>;
+     <span style="color:#66d9ef">display</span>: <span style="color:#66d9ef">table</span>;
+   }
+   
+   .<span style="color:#a6e22e">status</span> {
+     <span style="color:#66d9ef">margin-bottom</span>: <span style="color:#ae81ff">10</span><span style="color:#66d9ef">px</span>;
+   }
+   
+   .<span style="color:#a6e22e">square</span> {
+     <span style="color:#66d9ef">background</span>: <span style="color:#ae81ff">#fff</span>;
+     <span style="color:#66d9ef">border</span>: <span style="color:#ae81ff">1</span><span style="color:#66d9ef">px</span> <span style="color:#66d9ef">solid</span> <span style="color:#ae81ff">#999</span>;
+     <span style="color:#66d9ef">float</span>: <span style="color:#66d9ef">left</span>;
+     <span style="color:#66d9ef">font-size</span>: <span style="color:#ae81ff">24</span><span style="color:#66d9ef">px</span>;
+     <span style="color:#66d9ef">font-weight</span>: <span style="color:#66d9ef">bold</span>;
+     <span style="color:#66d9ef">line-height</span>: <span style="color:#ae81ff">34</span><span style="color:#66d9ef">px</span>;
+     <span style="color:#66d9ef">height</span>: <span style="color:#ae81ff">34</span><span style="color:#66d9ef">px</span>;
+     <span style="color:#66d9ef">margin-right</span>: <span style="color:#ae81ff">-1</span><span style="color:#66d9ef">px</span>;
+     <span style="color:#66d9ef">margin-top</span>: <span style="color:#ae81ff">-1</span><span style="color:#66d9ef">px</span>;
+     <span style="color:#66d9ef">padding</span>: <span style="color:#ae81ff">0</span>;
+     <span style="color:#66d9ef">text-align</span>: <span style="color:#66d9ef">center</span>;
+     <span style="color:#66d9ef">width</span>: <span style="color:#ae81ff">34</span><span style="color:#66d9ef">px</span>;
+   }
+   
+   .<span style="color:#a6e22e">square</span>:<span style="color:#a6e22e">focus</span> {
+     <span style="color:#66d9ef">outline</span>: <span style="color:#66d9ef">none</span>;
+   }
+   
+   .<span style="color:#a6e22e">kbd-navigation</span> .<span style="color:#a6e22e">square</span>:<span style="color:#a6e22e">focus</span> {
+     <span style="color:#66d9ef">background</span>: <span style="color:#ae81ff">#ddd</span>;
+   }
+   
+   .<span style="color:#a6e22e">game</span> {
+     <span style="color:#66d9ef">display</span>: <span style="color:#66d9ef">flex</span>;
+     <span style="color:#66d9ef">flex-direction</span>: <span style="color:#66d9ef">row</span>;
+   }
+   
+   .<span style="color:#a6e22e">game-info</span> {
+     <span style="color:#66d9ef">margin-left</span>: <span style="color:#ae81ff">20</span><span style="color:#66d9ef">px</span>;
+   }
+   </code></pre></div>
+<ol>
+<li>Add a file named <code>index.js</code> in the <code>src/</code> folder with <a href="https://codepen.io/gaearon/pen/oWWQNa?editors=0010">this JS code</a>.</li>
+</ol>
+
+<blockquote>
+<p>JSX就是Javascript和XML结合的一种格式。React发明了JSX，利用HTML语法来创建虚拟DOM。当遇到<code>&lt;</code>，JSX就当HTML解析，遇到<code>{</code>就当JavaScript解析。</p>
+
+<p>将XML语法直接加入JS中,通过代码而非模板来高效的定义界面。之后JSX通过翻译器转换为纯JS再由浏览器执行。在实际开发中，JSX在产品打包阶段都已经编译成纯JavaScript，JSX的语法不会带来任何性能影响。另外，由于JSX只是一种语法，因此JavaScript的关键字class,
+for等也不能出现在XML中，而要使用className, htmlFor代替，这和原生DOM在JavaScript中的创建也是一致的。JSX只是创建虚拟DOM的一种语法格式而已,除了用JSX,我们也可以用JS代码来创建虚拟DOM.</p>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx">   <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Square</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">React</span>.<span style="color:#a6e22e">Component</span> {
+     <span style="color:#a6e22e">render</span>() {
+       <span style="color:#66d9ef">return</span> (
+         &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;square&#34;</span>&gt;
+           {<span style="color:#75715e">/* TODO */</span>}
+         &lt;/<span style="color:#f92672">button</span>&gt;
+       );
+     }
+   }
+   
+   <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Board</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">React</span>.<span style="color:#a6e22e">Component</span> {
+     <span style="color:#a6e22e">renderSquare</span>(<span style="color:#a6e22e">i</span>) {
+       <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">Square</span> /&gt;;
+     }
+   
+     <span style="color:#a6e22e">render</span>() {
+       <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">status</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Next player: X&#39;</span>;
+   
+       <span style="color:#66d9ef">return</span> (
+         &lt;<span style="color:#f92672">div</span>&gt;
+           &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;status&#34;</span>&gt;{<span style="color:#a6e22e">status</span>}&lt;/<span style="color:#f92672">div</span>&gt;
+           &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;board-row&#34;</span>&gt;
+             {<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">renderSquare</span>(<span style="color:#ae81ff">0</span>)}
+             {<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">renderSquare</span>(<span style="color:#ae81ff">1</span>)}
+             {<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">renderSquare</span>(<span style="color:#ae81ff">2</span>)}
+           &lt;/<span style="color:#f92672">div</span>&gt;
+           &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;board-row&#34;</span>&gt;
+             {<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">renderSquare</span>(<span style="color:#ae81ff">3</span>)}
+             {<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">renderSquare</span>(<span style="color:#ae81ff">4</span>)}
+             {<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">renderSquare</span>(<span style="color:#ae81ff">5</span>)}
+           &lt;/<span style="color:#f92672">div</span>&gt;
+           &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;board-row&#34;</span>&gt;
+             {<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">renderSquare</span>(<span style="color:#ae81ff">6</span>)}
+             {<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">renderSquare</span>(<span style="color:#ae81ff">7</span>)}
+             {<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">renderSquare</span>(<span style="color:#ae81ff">8</span>)}
+           &lt;/<span style="color:#f92672">div</span>&gt;
+         &lt;/<span style="color:#f92672">div</span>&gt;
+       );
+     }
+   }
+   
+   <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Game</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">React</span>.<span style="color:#a6e22e">Component</span> {
+     <span style="color:#a6e22e">render</span>() {
+       <span style="color:#66d9ef">return</span> (
+         &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;game&#34;</span>&gt;
+           &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;game-board&#34;</span>&gt;
+             &lt;<span style="color:#f92672">Board</span> /&gt;
+           &lt;/<span style="color:#f92672">div</span>&gt;
+           &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;game-info&#34;</span>&gt;
+             &lt;<span style="color:#f92672">div</span>&gt;{<span style="color:#75715e">/* status */</span>}&lt;/<span style="color:#f92672">div</span>&gt;
+             &lt;<span style="color:#f92672">ol</span>&gt;{<span style="color:#75715e">/* TODO */</span>}&lt;/<span style="color:#f92672">ol</span>&gt;
+           &lt;/<span style="color:#f92672">div</span>&gt;
+         &lt;/<span style="color:#f92672">div</span>&gt;
+       );
+     }
+   }
+   
+   <span style="color:#75715e">// ========================================
+</span><span style="color:#75715e"></span>   
+   <span style="color:#a6e22e">ReactDOM</span>.<span style="color:#a6e22e">render</span>(
+     &lt;<span style="color:#f92672">Game</span> /&gt;,
+     document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#39;root&#39;</span>)
+   );
+   </code></pre></div>
+<ol>
+<li>Add these three lines to the top of <code>index.js</code> in the <code>src/</code> folder:</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx">   <span style="color:#66d9ef">import</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
+   <span style="color:#66d9ef">import</span> <span style="color:#a6e22e">ReactDOM</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-dom&#39;</span>;
+   <span style="color:#66d9ef">import</span> <span style="color:#e6db74">&#39;./index.css&#39;</span>;</code></pre></div>
+<p>Now if you run <code>npm start</code> in the project folder and open <code>http://localhost:3000</code> in the browser, you should see an empty tic-tac-toe field.</p>
+
+<h3 id="观察代码">观察代码</h3>
+
+<p>Index.js 中构建了3个组件<code>Square</code>, <code>Board</code>, <code>Game</code></p>
+
+<h4 id="passing-data-through-props-传值">Passing Data Through Props 传值</h4>
+
+<blockquote>
+<p>Props: (short for “properties”)</p>
+</blockquote>
+
+<p>In Board’s <code>renderSquare</code> method, change the code to pass a prop called <code>value</code> to the Square:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Board</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">React</span>.<span style="color:#a6e22e">Component</span> {
+  <span style="color:#a6e22e">renderSquare</span>(<span style="color:#a6e22e">i</span>) {
+    <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">Square</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">{i}</span> /&gt;;
+  }</code></pre></div>
+<p>Change Square’s <code>render</code> method to show that value by replacing <code>{/* TODO */}</code> with <code>{this.props.value}</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Square</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">React</span>.<span style="color:#a6e22e">Component</span> {
+  <span style="color:#a6e22e">render</span>() {
+    <span style="color:#66d9ef">return</span> (
+      &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;square&#34;</span>&gt;
+        {<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">props</span>.<span style="color:#a6e22e">value</span>}
+      &lt;/<span style="color:#f92672">button</span>&gt;
+    );
+  }
+}</code></pre></div>
+<p>在<code>Board</code>组件中定义了<code>Square</code>组件的创建函数，每调用一次<code>renderSquare(i)</code>函数时，向子组件传入值<code>i</code>.</p>
+
+<p><a href="https://codepen.io/gaearon/pen/aWWQOG?editors=0010"><strong>View the full code at this point</strong></a></p>
+
+<h4 id="making-an-interactive-component-制作交互组件">Making an Interactive Component 制作交互组件</h4>
+
+<p>点击Square组件的时候，填入<code>X</code>，为了Square经过点击后切换状态，组件需要使用<strong>state</strong>属性。</p>
+
+<blockquote>
+<p>React components can have state by setting <code>this.state</code> in their constructors.</p>
+
+<p><code>this.state</code> should be considered as private to a React component that it’s defined in. Let’s store the current value of the Square in <code>this.state</code>, and change it when the Square is clicked.</p>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Square</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">React</span>.<span style="color:#a6e22e">Component</span> {
+  <span style="color:#a6e22e">constructor</span>(<span style="color:#a6e22e">props</span>) {
+    <span style="color:#66d9ef">super</span>(<span style="color:#a6e22e">props</span>);
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> {
+      <span style="color:#a6e22e">value</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">null</span>,
+    };
+  }
+
+  <span style="color:#a6e22e">render</span>() {
+    <span style="color:#66d9ef">return</span> (
+      &lt;<span style="color:#f92672">button</span>
+        <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;square&#34;</span>
+        <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span><span style="color:#e6db74">{()</span> <span style="color:#960050;background-color:#1e0010">=</span>&gt; <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">setState</span>({<span style="color:#a6e22e">value</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;X&#39;</span>})}
+      <span style="color:#f92672">&gt;</span>
+        {<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">value</span>}
+      &lt;/<span style="color:#f92672">button</span>&gt;
+    );
+  }
+}</code></pre></div>
+<blockquote>
+<p>In <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes">JavaScript classes</a>, you need to always call <code>super</code> when defining the constructor of a subclass. All React component classes that have a <code>constructor</code> should start it with a <code>super(props)</code> call.</p>
+</blockquote>
+
+<p><a href="https://codepen.io/gaearon/pen/VbbVLg?editors=0010"><strong>View the full code at this point</strong></a></p>
+
+<h4 id="lifting-state-up-提升state的位置到其父组件">Lifting State Up 提升State的位置到其父组件</h4>
+
+<p><code>Board</code>需要获取各<code>Square</code>的State，才能判断游戏是否成功，需要在<code>Board</code>组件中创建一个数据共享域，来收集各<code>Square</code>的状态.</p>
+
+<p>Add a constructor to the Board and set the Board’s initial state to contain an array of 9 nulls corresponding to the 9 squares:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Board</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">React</span>.<span style="color:#a6e22e">Component</span> {
+  <span style="color:#a6e22e">constructor</span>(<span style="color:#a6e22e">props</span>) {
+    <span style="color:#66d9ef">super</span>(<span style="color:#a6e22e">props</span>);
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> {
+      <span style="color:#a6e22e">squares</span><span style="color:#f92672">:</span> Array(<span style="color:#ae81ff">9</span>).<span style="color:#a6e22e">fill</span>(<span style="color:#66d9ef">null</span>),
+    };
+  }
+
+  <span style="color:#a6e22e">renderSquare</span>(<span style="color:#a6e22e">i</span>) {
+        <span style="color:#66d9ef">return</span> (
+            &lt;<span style="color:#f92672">Square</span>
+                <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">{this.state.squares[i]}</span>
+                <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span><span style="color:#e6db74">{()</span> <span style="color:#960050;background-color:#1e0010">=</span>&gt; <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">handleClick</span>(<span style="color:#a6e22e">i</span>)}
+            <span style="color:#960050;background-color:#1e0010">/&gt;</span>
+        );
+    }</code></pre></div>
+<p>Now we’re passing down two props from Board to Square: <code>value</code> and <code>onClick</code>. The <code>onClick</code> prop is a function that Square can call when clicked. We’ll make the following changes to Square:</p>
+
+<ul>
+<li>Replace <code>this.state.value</code> with <code>this.props.value</code> in Square’s <code>render</code> method</li>
+<li>Replace <code>this.setState()</code> with <code>this.props.onClick()</code> in Square’s <code>render</code> method</li>
+<li>Delete the <code>constructor</code> from Square because Square no longer keeps track of the game’s state</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Square</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">React</span>.<span style="color:#a6e22e">Component</span> {
+  <span style="color:#a6e22e">render</span>() {
+    <span style="color:#66d9ef">return</span> (
+      &lt;<span style="color:#f92672">button</span>
+        <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;square&#34;</span>
+        <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span><span style="color:#e6db74">{()</span> <span style="color:#960050;background-color:#1e0010">=</span>&gt; <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">props</span>.<span style="color:#a6e22e">onClick</span>()}
+      <span style="color:#f92672">&gt;</span>
+        {<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">props</span>.<span style="color:#a6e22e">value</span>}
+      &lt;/<span style="color:#f92672">button</span>&gt;
+    );
+  }
+}</code></pre></div>
+<p><code>Board</code>调用<code>renderSquare(i)</code>时候创建了Square组件，并传递了<code>value</code>和<code>onClick</code>这两个对象，</p>
+
+<p>当点击<code>Square</code>的时候</p>
+
+<ul>
+<li><code>Square</code>组件中的<code>button</code>监听到点击事件，执行<code>this.props.onClick()</code>，取出从<code>Board</code>传递的<code>onClick</code>对象，由于这个对象是个函数，可以执行<code>this.props.onClick()</code>，接着执行函数体内的<code>this.handleClick(i)</code></li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"> <span style="color:#a6e22e">handleClick</span>(<span style="color:#a6e22e">i</span>) {
+    <span style="color:#75715e">// use the .slice() operator to create a copy of the squares array to modify instead of modifying the existing array. 
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">squares</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">squares</span>.<span style="color:#a6e22e">slice</span>(); 
+    <span style="color:#a6e22e">squares</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;X&#39;</span>;
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">setState</span>({<span style="color:#a6e22e">squares</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">squares</span>});
+  }</code></pre></div>
+<p><a href="https://codepen.io/gaearon/pen/ybbQJX?editors=0010"><strong>View the full code at this point</strong></a></p>
+
+<h4 id="function-components-函数组件">Function Components 函数组件</h4>
+
+<p>将<code>Square</code>改变为函数组件</p>
+
+<blockquote>
+<p>In React, <strong>function components</strong> are a simpler way to write components that only contain a <code>render</code> method and don’t have their own state. Instead of defining a class which extends <code>React.Component</code>, we can write a function that takes <code>props</code>
+as input and returns what should be rendered. Function components are
+less tedious to write than classes, and many components can be expressed
+this way.</p>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">Square</span>(<span style="color:#a6e22e">props</span>) {
+  <span style="color:#66d9ef">return</span> (
+    &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;square&#34;</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span><span style="color:#e6db74">{props.onClick}</span>&gt;
+      {<span style="color:#a6e22e">props</span>.<span style="color:#a6e22e">value</span>}
+    &lt;/<span style="color:#f92672">button</span>&gt;
+  );
+}</code></pre></div>
+<h4 id="taking-turns-两个玩家轮流玩">Taking Turns 两个玩家轮流玩</h4>
+
+<p>第一步走<code>X</code>, 下一步换另一个玩家走<code>O</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Board</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">React</span>.<span style="color:#a6e22e">Component</span> {
+  <span style="color:#a6e22e">constructor</span>(<span style="color:#a6e22e">props</span>) {
+    <span style="color:#66d9ef">super</span>(<span style="color:#a6e22e">props</span>);
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> {
+      <span style="color:#a6e22e">squares</span><span style="color:#f92672">:</span> Array(<span style="color:#ae81ff">9</span>).<span style="color:#a6e22e">fill</span>(<span style="color:#66d9ef">null</span>),
+      <span style="color:#a6e22e">xIsNext</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
+    };
+  }</code></pre></div>
+<p>每进行一次点击，则<code>xIsNext</code>取反</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#a6e22e">handleClick</span>(<span style="color:#a6e22e">i</span>) {
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">squares</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">squares</span>.<span style="color:#a6e22e">slice</span>();
+    <span style="color:#a6e22e">squares</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">xIsNext</span> <span style="color:#f92672">?</span> <span style="color:#e6db74">&#39;X&#39;</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;O&#39;</span>;
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">setState</span>({
+      <span style="color:#a6e22e">squares</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">squares</span>,
+      <span style="color:#a6e22e">xIsNext</span><span style="color:#f92672">:</span> <span style="color:#f92672">!</span><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">xIsNext</span>,
+    });
+  }</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#a6e22e">render</span>() {
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">status</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Next player: &#39;</span> <span style="color:#f92672">+</span> (<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">xIsNext</span> <span style="color:#f92672">?</span> <span style="color:#e6db74">&#39;X&#39;</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;O&#39;</span>);
+
+    <span style="color:#66d9ef">return</span> (
+      <span style="color:#960050;background-color:#1e0010">// the rest has not changed</span></code></pre></div>
+<h4 id="declaring-a-winner-声明一个胜利者">Declaring a winner 声明一个胜利者</h4>
+
+<p><code>index.js</code>的最后加上</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">calculateWinner</span>(<span style="color:#a6e22e">squares</span>) {
+    <span style="color:#75715e">// 游戏结束的所有情况
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">lines</span> <span style="color:#f92672">=</span> [
+        [<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>],
+        [<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>],
+        [<span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">8</span>],
+        [<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">6</span>],
+        [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">7</span>],
+        [<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">8</span>],
+        [<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">8</span>],
+        [<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">6</span>],
+    ];
+    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">lines</span>.<span style="color:#a6e22e">length</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) {
+        <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span>, <span style="color:#a6e22e">c</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">lines</span>[<span style="color:#a6e22e">i</span>];
+        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">squares</span>[<span style="color:#a6e22e">a</span>] <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">squares</span>[<span style="color:#a6e22e">a</span>] <span style="color:#f92672">===</span> <span style="color:#a6e22e">squares</span>[<span style="color:#a6e22e">b</span>] <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">squares</span>[<span style="color:#a6e22e">a</span>] <span style="color:#f92672">===</span> <span style="color:#a6e22e">squares</span>[<span style="color:#a6e22e">c</span>]) {
+            <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">squares</span>[<span style="color:#a6e22e">a</span>];
+        }
+    }
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span>;
+}</code></pre></div>
+<p>handleClick中加上</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#a6e22e">handleClick</span>(<span style="color:#a6e22e">i</span>) {
+        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">squares</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">squares</span>.<span style="color:#a6e22e">slice</span>();
+    	<span style="color:#75715e">// 若某人已经赢了游戏，或者这个块已经被填入了东西（下一个人不能在上一个的位置下棋），则禁用点击。
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">calculateWinner</span>(<span style="color:#a6e22e">squares</span>) <span style="color:#f92672">||</span> <span style="color:#a6e22e">squares</span>[<span style="color:#a6e22e">i</span>]) {
+            <span style="color:#66d9ef">return</span>;
+        }
+        <span style="color:#a6e22e">squares</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">xIsNext</span> <span style="color:#f92672">?</span> <span style="color:#e6db74">&#39;X&#39;</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;O&#39;</span>;
+        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">setState</span>({
+            <span style="color:#a6e22e">squares</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">squares</span>,
+            <span style="color:#a6e22e">xIsNext</span><span style="color:#f92672">:</span> <span style="color:#f92672">!</span><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">xIsNext</span>,
+        });
+    }</code></pre></div>
+<h4 id="adding-time-travel-可以悔棋">Adding Time Travel 可以悔棋</h4>
+
+<p>设计<code>history</code>数组保存已经走过的局面：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#a6e22e">history</span> <span style="color:#f92672">=</span> [
+  <span style="color:#75715e">// Before first move
+</span><span style="color:#75715e"></span>  {
+    <span style="color:#a6e22e">squares</span><span style="color:#f92672">:</span> [
+      <span style="color:#66d9ef">null</span>, <span style="color:#66d9ef">null</span>, <span style="color:#66d9ef">null</span>,
+      <span style="color:#66d9ef">null</span>, <span style="color:#66d9ef">null</span>, <span style="color:#66d9ef">null</span>,
+      <span style="color:#66d9ef">null</span>, <span style="color:#66d9ef">null</span>, <span style="color:#66d9ef">null</span>,
+    ]
+  },
+  <span style="color:#75715e">// After first move
+</span><span style="color:#75715e"></span>  {
+    <span style="color:#a6e22e">squares</span><span style="color:#f92672">:</span> [
+      <span style="color:#66d9ef">null</span>, <span style="color:#66d9ef">null</span>, <span style="color:#66d9ef">null</span>,
+      <span style="color:#66d9ef">null</span>, <span style="color:#e6db74">&#39;X&#39;</span>, <span style="color:#66d9ef">null</span>,
+      <span style="color:#66d9ef">null</span>, <span style="color:#66d9ef">null</span>, <span style="color:#66d9ef">null</span>,
+    ]
+  },
+  <span style="color:#75715e">// After second move
+</span><span style="color:#75715e"></span>  {
+    <span style="color:#a6e22e">squares</span><span style="color:#f92672">:</span> [
+      <span style="color:#66d9ef">null</span>, <span style="color:#66d9ef">null</span>, <span style="color:#66d9ef">null</span>,
+      <span style="color:#66d9ef">null</span>, <span style="color:#e6db74">&#39;X&#39;</span>, <span style="color:#66d9ef">null</span>,
+      <span style="color:#66d9ef">null</span>, <span style="color:#66d9ef">null</span>, <span style="color:#e6db74">&#39;O&#39;</span>,
+    ]
+  },
+  <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>]</code></pre></div>
+<h4 id="lifting-state-up-again-再一次提升state的位置到其父组件">Lifting State Up, Again 再一次提升State的位置到其父组件</h4>
+
+<p>将<code>history[]</code>,<code>squares[]</code>,<code>xIsNext</code>,<code>handleClick()</code>提升到<code>Game</code>组件，<strong>简化子组件功能</strong>，使得<code>Board</code>组件仅负责加载<code>Square</code>和自身，<code>Square</code>组件仅负责加载自身，也就变成了一个函数组件。</p>
+
+<p>子组件的函数和值由最高级的父组件定义，由父组件层层传递给子组件：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Game</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">React</span>.<span style="color:#a6e22e">Component</span> {
+    <span style="color:#75715e">// 设置state
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">constructor</span>(<span style="color:#a6e22e">props</span>) {
+        <span style="color:#66d9ef">super</span>(<span style="color:#a6e22e">props</span>);
+        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> {
+            <span style="color:#a6e22e">history</span><span style="color:#f92672">:</span> [{
+                <span style="color:#a6e22e">squares</span><span style="color:#f92672">:</span> Array(<span style="color:#ae81ff">9</span>).<span style="color:#a6e22e">fill</span>(<span style="color:#66d9ef">null</span>),
+            }],
+            <span style="color:#a6e22e">stepNumber</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>,
+            <span style="color:#a6e22e">xIsNext</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
+        };
+    }
+
+    <span style="color:#75715e">// 更新StepNumber，StepNumber为奇数时，xIsNext=true, 即下一个步应该&#39;X&#39;先行
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">jumpTo</span>(<span style="color:#a6e22e">step</span>) {
+        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">setState</span>({
+            <span style="color:#a6e22e">stepNumber</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">step</span>,
+            <span style="color:#a6e22e">xIsNext</span><span style="color:#f92672">:</span> (<span style="color:#a6e22e">step</span> <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span>) <span style="color:#f92672">===</span> <span style="color:#ae81ff">0</span>,
+        });
+    }
+
+    <span style="color:#75715e">// 实现handleClick()，
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">handleClick</span>(<span style="color:#a6e22e">i</span>) {
+        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">history</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">history</span>.<span style="color:#a6e22e">slice</span>(<span style="color:#ae81ff">0</span>, <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">stepNumber</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>);
+        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">current</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">history</span>[<span style="color:#a6e22e">history</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>];
+        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">squares</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">current</span>.<span style="color:#a6e22e">squares</span>.<span style="color:#a6e22e">slice</span>();
+        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">calculateWinner</span>(<span style="color:#a6e22e">squares</span>) <span style="color:#f92672">||</span> <span style="color:#a6e22e">squares</span>[<span style="color:#a6e22e">i</span>]) {
+            <span style="color:#66d9ef">return</span>;
+        }
+        <span style="color:#a6e22e">squares</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">xIsNext</span> <span style="color:#f92672">?</span> <span style="color:#e6db74">&#39;X&#39;</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;O&#39;</span>;
+        <span style="color:#75715e">// 更新history，当前已经走的步数
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">setState</span>({
+            <span style="color:#a6e22e">history</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">history</span>.<span style="color:#a6e22e">concat</span>([{
+                <span style="color:#a6e22e">squares</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">squares</span>,
+            }]),
+            <span style="color:#a6e22e">stepNumber</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">history</span>.<span style="color:#a6e22e">length</span>,
+            <span style="color:#a6e22e">xIsNext</span><span style="color:#f92672">:</span> <span style="color:#f92672">!</span><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">xIsNext</span>,
+        });
+    }
+
+    <span style="color:#a6e22e">render</span>() {
+        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">history</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">history</span>;
+        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">current</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">history</span>[<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">stepNumber</span>];
+        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">winner</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">calculateWinner</span>(<span style="color:#a6e22e">current</span>.<span style="color:#a6e22e">squares</span>);
+
+        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">moves</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">history</span>.<span style="color:#a6e22e">map</span>((<span style="color:#a6e22e">step</span>, <span style="color:#a6e22e">move</span>) =&gt; {
+            <span style="color:#75715e">// Description
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">desc</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">move</span> <span style="color:#f92672">?</span>
+                <span style="color:#e6db74">&#39;Go to move #&#39;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">move</span> <span style="color:#f92672">:</span>
+                <span style="color:#e6db74">&#39;Go to game start&#39;</span>;
+            <span style="color:#66d9ef">return</span> (
+                &lt;<span style="color:#f92672">li</span> <span style="color:#a6e22e">key</span><span style="color:#f92672">=</span><span style="color:#e6db74">{move}</span>&gt;
+                    &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span><span style="color:#e6db74">{()</span> <span style="color:#960050;background-color:#1e0010">=</span>&gt; <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">jumpTo</span>(<span style="color:#a6e22e">move</span>)}<span style="color:#f92672">&gt;</span>{<span style="color:#a6e22e">desc</span>}&lt;/<span style="color:#f92672">button</span>&gt;
+                &lt;/<span style="color:#f92672">li</span>&gt;
+            );
+        });
+
+        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">status</span>;
+        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">winner</span>) {
+            <span style="color:#a6e22e">status</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Winner: &#39;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">winner</span>;
+        } <span style="color:#66d9ef">else</span> {
+            <span style="color:#a6e22e">status</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Next player: &#39;</span> <span style="color:#f92672">+</span> (<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">xIsNext</span> <span style="color:#f92672">?</span> <span style="color:#e6db74">&#39;X&#39;</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;O&#39;</span>);
+        }
+
+        <span style="color:#75715e">// 创建Board组件时传值，其中handleClick的实现在Board组件中
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">return</span> (
+            &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;game&#34;</span>&gt;
+                &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;game-board&#34;</span>&gt;
+                    &lt;<span style="color:#f92672">Board</span>
+                        <span style="color:#a6e22e">squares</span><span style="color:#f92672">=</span><span style="color:#e6db74">{current.squares}</span>
+                        <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span><span style="color:#e6db74">{(i)</span> <span style="color:#960050;background-color:#1e0010">=</span>&gt; <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">handleClick</span>(<span style="color:#a6e22e">i</span>)}
+                    <span style="color:#960050;background-color:#1e0010">/&gt;</span>
+                &lt;/<span style="color:#f92672">div</span>&gt;
+                &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;game-info&#34;</span>&gt;
+                    &lt;<span style="color:#f92672">div</span>&gt;{<span style="color:#a6e22e">status</span>}&lt;/<span style="color:#f92672">div</span>&gt;
+                    &lt;<span style="color:#f92672">ol</span>&gt;{<span style="color:#a6e22e">moves</span>}&lt;/<span style="color:#f92672">ol</span>&gt;
+                &lt;/<span style="color:#f92672">div</span>&gt;
+            &lt;/<span style="color:#f92672">div</span>&gt;
+        );
+    }
+}</code></pre></div>
+<p><code>Board</code>组件仅负责加载<code>Square</code>和自身，修改为</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Board</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">React</span>.<span style="color:#a6e22e">Component</span> {
+    <span style="color:#75715e">// 从props取从父组件传来的值，并传递给Square组件
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">renderSquare</span>(<span style="color:#a6e22e">i</span>) {
+        <span style="color:#66d9ef">return</span> (
+            &lt;<span style="color:#f92672">Square</span>
+                <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">{this.props.squares[i]}</span>
+                <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span><span style="color:#e6db74">{()</span> <span style="color:#960050;background-color:#1e0010">=</span>&gt; <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">props</span>.<span style="color:#a6e22e">onClick</span>(<span style="color:#a6e22e">i</span>)}
+            <span style="color:#960050;background-color:#1e0010">/&gt;</span>
+        );
+    }
+
+    <span style="color:#a6e22e">render</span>() {
+        <span style="color:#66d9ef">return</span> (
+            &lt;<span style="color:#f92672">div</span>&gt;
+                &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;board-row&#34;</span>&gt;
+                    {<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">renderSquare</span>(<span style="color:#ae81ff">0</span>)}
+                    {<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">renderSquare</span>(<span style="color:#ae81ff">1</span>)}
+                    {<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">renderSquare</span>(<span style="color:#ae81ff">2</span>)}
+                &lt;/<span style="color:#f92672">div</span>&gt;
+                &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;board-row&#34;</span>&gt;
+                    {<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">renderSquare</span>(<span style="color:#ae81ff">3</span>)}
+                    {<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">renderSquare</span>(<span style="color:#ae81ff">4</span>)}
+                    {<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">renderSquare</span>(<span style="color:#ae81ff">5</span>)}
+                &lt;/<span style="color:#f92672">div</span>&gt;
+                &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;board-row&#34;</span>&gt;
+                    {<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">renderSquare</span>(<span style="color:#ae81ff">6</span>)}
+                    {<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">renderSquare</span>(<span style="color:#ae81ff">7</span>)}
+                    {<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">renderSquare</span>(<span style="color:#ae81ff">8</span>)}
+                &lt;/<span style="color:#f92672">div</span>&gt;
+            &lt;/<span style="color:#f92672">div</span>&gt;
+        );
+    }
+}</code></pre></div>
+<p>附上<code>Square</code>这个函数组件(仅负责加载自身)：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">Square</span>(<span style="color:#a6e22e">props</span>) {
+    <span style="color:#75715e">// 从props取从父组件传来的值，并传递给button
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">return</span> (
+        &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;square&#34;</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span><span style="color:#e6db74">{props.onClick}</span>&gt;
+            {<span style="color:#a6e22e">props</span>.<span style="color:#a6e22e">value</span>}
+        &lt;/<span style="color:#f92672">button</span>&gt;
+    );
+}</code></pre></div>
+<p>在<code>index.js</code>的开头加上</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">ReactDOM</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-dom&#39;</span>;
+<span style="color:#66d9ef">import</span> <span style="color:#e6db74">&#39;./index.css&#39;</span>;</code></pre></div>
+<p>最后在<code>index.js</code>的结尾加上全局的dom渲染和<code>calculateWinner(squares)</code>这个全局函数，就构成了完整的<code>index.js</code>代码</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#a6e22e">ReactDOM</span>.<span style="color:#a6e22e">render</span>(
+    &lt;<span style="color:#f92672">Game</span> /&gt;,
+    document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#39;root&#39;</span>)
+);
+
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">calculateWinner</span>(<span style="color:#a6e22e">squares</span>) {
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">lines</span> <span style="color:#f92672">=</span> [
+        [<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>],
+        [<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>],
+        [<span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">8</span>],
+        [<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">6</span>],
+        [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">7</span>],
+        [<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">8</span>],
+        [<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">8</span>],
+        [<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">6</span>],
+    ];
+    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">lines</span>.<span style="color:#a6e22e">length</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) {
+        <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span>, <span style="color:#a6e22e">c</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">lines</span>[<span style="color:#a6e22e">i</span>];
+        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">squares</span>[<span style="color:#a6e22e">a</span>] <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">squares</span>[<span style="color:#a6e22e">a</span>] <span style="color:#f92672">===</span> <span style="color:#a6e22e">squares</span>[<span style="color:#a6e22e">b</span>] <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">squares</span>[<span style="color:#a6e22e">a</span>] <span style="color:#f92672">===</span> <span style="color:#a6e22e">squares</span>[<span style="color:#a6e22e">c</span>]) {
+            <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">squares</span>[<span style="color:#a6e22e">a</span>];
+        }
+    }
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span>;
+}</code></pre></div>
+<h2 id="为生产环境生成静态网站">为生产环境生成静态网站</h2>
+
+<p>编译到<code>/build</code>下</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">npm run build
+
+The project was built assuming it is hosted at the server root.
+You can control this with the homepage field in your package.json.
+For example, add this to build it <span style="color:#66d9ef">for</span> GitHub Pages:
+
+  <span style="color:#e6db74">&#34;homepage&#34;</span> : <span style="color:#e6db74">&#34;http://myname.github.io/myapp&#34;</span>,
+
+The build folder is ready to be deployed.
+
+You may serve it with a static server:
+
+  npm install -g serve
+  serve -s build</code></pre></div>
+<p>提示：build中的内容要放在一个静态服务器的根目录，是因为html引用的其他静态文件中的路径为基于服务器根目录的绝对地址</p>
+
+<p>考虑到npx可以建立本地的静态服务器，在<code>/build</code>下执行</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">npx http-server</code></pre></div>
+<p><strong>不想那么麻烦？</strong></p>
+
+<p>资源路径修改为相对路径</p>
+
+<p>在package.json中加上<code>&quot;homepage&quot;:&quot;.&quot;</code> 重新编译，之后直接打开index.html即可</p></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://chenkangyang.github.io/tags/react"><span class="tag">React</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  
+<footer class="site-footer">
+  <p>© 2017-2019 Alex&#39;s Blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank" rel="noopener">Nuo</a>.</p>
+  
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/smooth-scroll@15.0.0/dist/smooth-scroll.min.js"></script>
+
+
+
+<script async src="https://cdn.jsdelivr.net/npm/video.js@7.3.0/dist/video.min.js"></script>
+
+
+
+
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    },
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+
+
+<script src="https://chenkangyang.github.io/scripts/index.min.js"></script>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('\/service-worker.js').then(function() {
+      console.log('[ServiceWorker] Registered');
+    });
+  }
+</script>
+
+
+
+
+
+
+
+
+  </body>
+</html>
