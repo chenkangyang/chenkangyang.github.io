@@ -14,28 +14,28 @@
     
     <item>
       <title>Tutorial 建站教程</title>
-      <link>https://chenkangyang.github.io/post/tutorial/</link>
+      <link>https://chenkangyang.github.io/post/construct_tutorial/</link>
       <pubDate>Sat, 04 May 2019 10:16:20 +0800</pubDate>
       
-      <guid>https://chenkangyang.github.io/post/tutorial/</guid>
+      <guid>https://chenkangyang.github.io/post/construct_tutorial/</guid>
       <description>&lt;p&gt;建站教程&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Construction Record 装修记录</title>
-      <link>https://chenkangyang.github.io/post/construct-record/</link>
-      <pubDate>Fri, 03 May 2019 23:41:42 +0800</pubDate>
+      <link>https://chenkangyang.github.io/post/construct_record/</link>
+      <pubDate>Thu, 02 May 2019 10:16:20 +0800</pubDate>
       
-      <guid>https://chenkangyang.github.io/post/construct-record/</guid>
+      <guid>https://chenkangyang.github.io/post/construct_record/</guid>
       <description>&lt;p&gt;记录该站点的装修记录&lt;/p&gt;</description>
     </item>
     
     <item>
-      <title>Hugo 主题 Nuo 文章样式预览</title>
-      <link>https://chenkangyang.github.io/post/hugo-nuo-post-preview/</link>
-      <pubDate>Thu, 17 Jul 2014 00:00:00 +0000</pubDate>
+      <title>Markdown 样式参考</title>
+      <link>https://chenkangyang.github.io/post/markdown_post_preview/</link>
+      <pubDate>Wed, 01 May 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://chenkangyang.github.io/post/hugo-nuo-post-preview/</guid>
+      <guid>https://chenkangyang.github.io/post/markdown_post_preview/</guid>
       <description>&lt;p&gt;这篇文章集中说明本人博客主题所支持的 Markdown 语法和 Hugo Shortcodes 插件，你也可以在这里预览到他们的样子。如果你不喜欢某些部分的样式，可以去修改 &lt;code&gt;content.scss&lt;/code&gt; 和 &lt;code&gt;shortcodes.scss&lt;/code&gt; 这两个文件。预告一下，我所用的这个名为 &lt;code&gt;Nuo&lt;/code&gt; 的 &lt;code&gt;Hugo&lt;/code&gt; 也将于近期发布，敬请期待。&lt;/p&gt;</description>
     </item>
     
