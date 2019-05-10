@@ -221,11 +221,14 @@
                    +-------+                      +--------+
 </code></pre>
 
-<p>设计并实现一个词法分析器，实现对指定位置的类C语言源程序文本文件的读取，并能够对该源程序中的所有单词进行分类，指出其所属类型，实现简单的词法分析操作。
-- 允许用户自己输入源程序并保存为文件
-- 系统能够输出经过预处理后的源程序（去掉注释、换行、空格等）
-- 能够将该源程序中所有的单词根据其所属类型（整数、保留字、运算符、标识符等。定义的类C语言中的标识符只能以字母或下划线开头）进行归类显示，例如：识别保留字：if、int、for、while、do、return、break、continue等，其他的都识别为标识符；常数为无符号整形数；运算符包括：+、-、*、/、=、&gt;、&lt;、&gt;=、&lt;=、!=等；分隔符包括：,、;、{、}、(、)等。
-- 实现文件的读取操作，而不是将文本以字符串形式预存于程序中。文本内容为待分析的类C语言程序。</p>
+<p>设计并实现一个词法分析器，实现对指定位置的类C语言源程序文本文件的读取，并能够对该源程序中的所有单词进行分类，指出其所属类型，实现简单的词法分析操作。</p>
+
+<ul>
+<li>允许用户自己输入源程序并保存为文件</li>
+<li>系统能够输出经过预处理后的源程序（去掉注释、换行、空格等）</li>
+<li>能够将该源程序中所有的单词根据其所属类型（整数、保留字、运算符、标识符等。定义的类C语言中的标识符只能以字母或下划线开头）进行归类显示，例如：识别保留字：if、int、for、while、do、return、break、continue等，其他的都识别为标识符；常数为无符号整形数；运算符包括：+、-、*、/、=、&gt;、&lt;、&gt;=、&lt;=、!=等；分隔符包括：,、;、{、}、(、)等。</li>
+<li>实现文件的读取操作，而不是将文本以字符串形式预存于程序中。文本内容为待分析的类C语言程序。</li>
+</ul>
 
 <p>例如下面为一段C语言源程序：</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">main()
@@ -285,52 +288,51 @@ volatile    while   define
 </ol>
 
 <ul>
-<li>创建保留字表、界符表、运算符表、标识符表
-```c++</li>
+<li>创建保留字表、界符表、运算符表、标识符表</li>
 </ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">//全局变量, 保留字表
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">char</span> reserveWordTbl[<span style="color:#ae81ff">33</span>][<span style="color:#ae81ff">20</span>] <span style="color:#f92672">=</span> {
+        <span style="color:#e6db74">&#34;auto&#34;</span>, <span style="color:#e6db74">&#34;break&#34;</span>, <span style="color:#e6db74">&#34;case&#34;</span>, <span style="color:#e6db74">&#34;char&#34;</span>, <span style="color:#e6db74">&#34;const&#34;</span>, <span style="color:#e6db74">&#34;continue&#34;</span>,
+        <span style="color:#e6db74">&#34;default&#34;</span>, <span style="color:#e6db74">&#34;do&#34;</span>, <span style="color:#e6db74">&#34;double&#34;</span>, <span style="color:#e6db74">&#34;else&#34;</span>, <span style="color:#e6db74">&#34;enum&#34;</span>, <span style="color:#e6db74">&#34;extern&#34;</span>,
+        <span style="color:#e6db74">&#34;float&#34;</span>, <span style="color:#e6db74">&#34;for&#34;</span>, <span style="color:#e6db74">&#34;goto&#34;</span>, <span style="color:#e6db74">&#34;if&#34;</span>, <span style="color:#e6db74">&#34;int&#34;</span>, <span style="color:#e6db74">&#34;long&#34;</span>,
+        <span style="color:#e6db74">&#34;register&#34;</span>, <span style="color:#e6db74">&#34;return&#34;</span>, <span style="color:#e6db74">&#34;short&#34;</span>, <span style="color:#e6db74">&#34;signed&#34;</span>, <span style="color:#e6db74">&#34;sizeof&#34;</span>, <span style="color:#e6db74">&#34;static&#34;</span>,
+        <span style="color:#e6db74">&#34;struct&#34;</span>, <span style="color:#e6db74">&#34;switch&#34;</span>, <span style="color:#e6db74">&#34;typedef&#34;</span>, <span style="color:#e6db74">&#34;union&#34;</span>, <span style="color:#e6db74">&#34;unsigned&#34;</span>, <span style="color:#e6db74">&#34;void&#34;</span>,
+        <span style="color:#e6db74">&#34;volatile&#34;</span>, <span style="color:#e6db74">&#34;while&#34;</span>, <span style="color:#e6db74">&#34;define&#34;</span>
+};
 
-<p>//全局变量, 保留字表
-static char reserveWordTbl[33][20] = {
-        &ldquo;auto&rdquo;, &ldquo;break&rdquo;, &ldquo;case&rdquo;, &ldquo;char&rdquo;, &ldquo;const&rdquo;, &ldquo;continue&rdquo;,
-        &ldquo;default&rdquo;, &ldquo;do&rdquo;, &ldquo;double&rdquo;, &ldquo;else&rdquo;, &ldquo;enum&rdquo;, &ldquo;extern&rdquo;,
-        &ldquo;float&rdquo;, &ldquo;for&rdquo;, &ldquo;goto&rdquo;, &ldquo;if&rdquo;, &ldquo;int&rdquo;, &ldquo;long&rdquo;,
-        &ldquo;register&rdquo;, &ldquo;return&rdquo;, &ldquo;short&rdquo;, &ldquo;signed&rdquo;, &ldquo;sizeof&rdquo;, &ldquo;static&rdquo;,
-        &ldquo;struct&rdquo;, &ldquo;switch&rdquo;, &ldquo;typedef&rdquo;, &ldquo;union&rdquo;, &ldquo;unsigned&rdquo;, &ldquo;void&rdquo;,
-        &ldquo;volatile&rdquo;, &ldquo;while&rdquo;, &ldquo;define&rdquo;
-};</p>
+<span style="color:#75715e">//运算符表, 根据需要可以自行增加
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">char</span> operatorTbl[<span style="color:#ae81ff">10</span>][<span style="color:#ae81ff">4</span>]<span style="color:#f92672">=</span>{
+    <span style="color:#e6db74">&#34;&lt;&#34;</span>, <span style="color:#e6db74">&#34;&lt;=&#34;</span>, <span style="color:#e6db74">&#34;&gt;&#34;</span>, <span style="color:#e6db74">&#34;&gt;=&#34;</span>, <span style="color:#e6db74">&#34;=&#34;</span>, <span style="color:#e6db74">&#34;+&#34;</span>, <span style="color:#e6db74">&#34;-&#34;</span>, <span style="color:#e6db74">&#34;*&#34;</span>, <span style="color:#e6db74">&#34;/&#34;</span>, <span style="color:#e6db74">&#34;^&#34;</span>
+};
 
-<p>//运算符表, 根据需要可以自行增加
-static char operatorTbl[10][4]={
-    &ldquo;&lt;&ldquo;, &ldquo;&lt;=&ldquo;, &ldquo;&gt;&rdquo;, &ldquo;&gt;=&rdquo;, &ldquo;=&rdquo;, &ldquo;+&rdquo;, &ldquo;-&rdquo;, &ldquo;*&ldquo;, &ldquo;/&rdquo;, &ldquo;^&rdquo;
-};</p>
-
-<p>// 界符
-static char delimiterTbl[12][3]={
-        &ldquo;#&rdquo;, &ldquo;(&rdquo;, &ldquo;)&rdquo;, &ldquo;{&rdquo;, &ldquo;}&rdquo;, &ldquo;;&rdquo;,
-        &ldquo;[&ldquo;, &ldquo;]&rdquo;, &ldquo;,&rdquo;, &ldquo;;&rdquo;, &lsquo;&ldquo;&rsquo;, &lsquo;\&rdquo;
-};</p>
-
-<pre><code>- 定义结构体保存二元组
-```c++
-//词的结构，二元组形式（单词种别，单词自身的值）
-typedef struct
+<span style="color:#75715e">// 界符
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">char</span> delimiterTbl[<span style="color:#ae81ff">12</span>][<span style="color:#ae81ff">3</span>]<span style="color:#f92672">=</span>{
+        <span style="color:#e6db74">&#34;#&#34;</span>, <span style="color:#e6db74">&#34;(&#34;</span>, <span style="color:#e6db74">&#34;)&#34;</span>, <span style="color:#e6db74">&#34;{&#34;</span>, <span style="color:#e6db74">&#34;}&#34;</span>, <span style="color:#e6db74">&#34;;&#34;</span>,
+        <span style="color:#e6db74">&#34;[&#34;</span>, <span style="color:#e6db74">&#34;]&#34;</span>, <span style="color:#e6db74">&#34;,&#34;</span>, <span style="color:#e6db74">&#34;;&#34;</span>, <span style="color:#e6db74">&#39;&#34;&#39;</span>, <span style="color:#e6db74">&#39;\&#39;&#39;</span>
+};
+</code></pre></div>
+<ul>
+<li>定义结构体保存二元组</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">//词的结构，二元组形式（单词种别，单词自身的值）
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span>
 {
-    int typenum; //单词种别
-    char *word;
+    <span style="color:#66d9ef">int</span> typenum; <span style="color:#75715e">//单词种别
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>word;
 }Table;
-</code></pre>
-
+</code></pre></div>
 <ul>
 <li><p>考虑使用 &ldquo;cstring&rdquo; 中的函数做字符串匹配</p></li>
 
-<li><p>定义扫描函数调用源代码过滤函数</p>
+<li><p>定义扫描函数调用源代码过滤函数</p></li>
+</ul>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">/***************** 过滤程序注释 ************************/</span>
 <span style="color:#66d9ef">void</span> Skip_comments(<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>r)
 <span style="color:#75715e">/***************** 输入源代码、空的结构体数组指针、 ************************/</span>
 <span style="color:#66d9ef">int</span> Scanner(<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>r, Table <span style="color:#f92672">*</span>table)
-</code></pre></div></li>
-
-<li><p>主程序选择：读入一个文件 or 写一个人的代码进行分析</p>
+</code></pre></div>
+<ul>
+<li>主程序选择：读入一个文件 or 写一个人的代码进行分析
 
 <ul>
 <li>词法分析</li>
