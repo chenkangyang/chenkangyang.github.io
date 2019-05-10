@@ -31,12 +31,12 @@
     </item>
     
     <item>
-      <title>使用c语言实现一个词法分析器</title>
+      <title>使用c&#43;&#43;实现一个词法分析器</title>
       <link>https://chenkangyang.github.io/post/lexical-analyzer/</link>
       <pubDate>Sat, 04 May 2019 20:37:05 +0800</pubDate>
       
       <guid>https://chenkangyang.github.io/post/lexical-analyzer/</guid>
-      <description>&lt;p&gt;c语言实现一个c语言的词法分析器，对单词进行识别和编码&lt;/p&gt;</description>
+      <description>&lt;p&gt;c++实现一个c语言的词法分析器，对单词进行识别和编码&lt;/p&gt;</description>
     </item>
     
     <item>
