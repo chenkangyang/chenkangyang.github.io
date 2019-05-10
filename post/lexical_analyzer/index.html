@@ -265,22 +265,79 @@ a <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>;
 
 <ol>
 <li>完成文件读取</li>
-<li>文本识别
-识别为5类符号：标识符、保留字、常数、运算符、界符
-定义5类符号的集合为：
-1：保留字(33)
+
+<li><p>文本识别
+将源代码识别为5类符号：保留字、标识符、整常数、运算符、界符
+定义5类符号的集合为：</p>
+
+<p><code>1</code>：保留字(33)
 auto       break    case     char        const      continue<br />
 default    do       double   else        enum       extern<br />
 float      for      goto     if          int        long<br />
 register   return   short    signed      sizeof     static<br />
 struct     switch   typedef  union       unsigned   void<br />
-volatile    while   define
-2：标识符   letter(letter | digit)*  无穷集
-3：常数(无符号整形数)    (digit)+  无穷集
-4：运算符    &lt;、&lt;=、&gt;、&gt;=、=、+、-、*、/、^、等
-5：界符     ‘/*’、‘//’、 () { } [ ] &ldquo; &rdquo;  &lsquo; 等<br /></li>
-<li>状态转换图
-<img src="http://blog.nuptalex.xyz/词法分析状态转换图.png" alt="词法分析状态转换图.png" /></li>
+volatile    while   define</p>
+
+<p><code>2</code>：标识符   letter(letter | digit)*  无穷集</p>
+
+<p><code>3</code>：常数(无符号整形数)    (digit)+  无穷集</p>
+
+<p><code>4</code>：运算符    &lt;、&lt;=、&gt;、&gt;=、=、+、-、*、/、^、等</p>
+
+<p><code>5</code>：界符     #、(、)、{、}、;、[、]、,、;、、&rdquo;、&rsquo; 等</p></li>
+</ol>
+
+<p>需要分析的语言符号子集如下表所示：</p>
+
+<table>
+<thead>
+<tr>
+<th align="center">基本符号</th>
+<th align="center">种别编码</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="center">保留字</td>
+<td align="center">1</td>
+</tr>
+
+<tr>
+<td align="center">标识符</td>
+<td align="center">2</td>
+</tr>
+
+<tr>
+<td align="center">整常数</td>
+<td align="center">3</td>
+</tr>
+
+<tr>
+<td align="center">运算符</td>
+<td align="center">4</td>
+</tr>
+
+<tr>
+<td align="center">界符</td>
+<td align="center">5</td>
+</tr>
+</tbody>
+</table>
+
+<ol>
+<li><p>各符号对应的正规文法:</p>
+
+<pre><code>&lt;标识符&gt;::=字母|&lt;标识符&gt;数字|&lt;标识符&gt;字母
+&lt;整常数&gt;::=数字|&lt;整常数&gt;数字
+&lt;运算符&gt;::={'&lt;', '&gt;', '=', '+', '-', '*', '/', '^'} | {'&gt;'}= | {'&lt;'}=
+&lt;界符&gt;::={&quot;#&quot;, &quot;(&quot;, &quot;)&quot;, &quot;{&quot;, &quot;}&quot;, &quot;;&quot;,
+    &quot;[&quot;, &quot;]&quot;, &quot;,&quot;, &quot;;&quot;, '&quot;', '\''}
+&lt;保留字&gt;::=&lt;保留字&gt;        
+</code></pre></li>
+
+<li><p>状态转换图
+<img src="http://blog.nuptalex.xyz/词法分析状态转换图.png" alt="词法分析状态转换图.png" /></p></li>
 
 <li><p>定义一个结构体数组保存二元组，c++中可以考虑使用<code>map</code>简化操作</p>
 
@@ -594,10 +651,8 @@ volatile    while   define
 </code></pre></div>
 <h3 id="测试">测试</h3>
 
-<ol>
-<li>读取现有文件
-测试文件：input.txt, 放在路径<code>cmake-build-debug</code>下</li>
-</ol>
+<p>1.读取现有文件
+测试文件：input.txt, 放在路径<code>cmake-build-debug</code>下</p>
 
 <pre><code>#define D 50
 
@@ -632,11 +687,7 @@ int main()
 </figure>
 </p>
 
-<!-- <img src="http://blog.nuptalex.xyz/20190510140204.png" width="100px" height="100px"> -->
-
-<ol>
-<li>从键盘输入代码并保存至文件</li>
-</ol>
+<p>2.从键盘输入代码并保存至文件</p>
 
 <figure class="zoomable">
     <img src="http://blog.nuptalex.xyz/20190510140503.png" width="50%" height="50%"/> 
