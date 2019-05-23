@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>编译原理 on Alex&#39;s Blog</title>
+    <link>https://chenkangyang.github.io/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/</link>
+    <description>Recent content in 编译原理 on Alex&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
+    <lastBuildDate>Sat, 04 May 2019 20:37:05 +0800</lastBuildDate>
+    
+	<atom:link href="https://chenkangyang.github.io/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>使用c&#43;&#43;实现一个词法分析器</title>
+      <link>https://chenkangyang.github.io/post/lexical_analyzer/</link>
+      <pubDate>Sat, 04 May 2019 20:37:05 +0800</pubDate>
+      
+      <guid>https://chenkangyang.github.io/post/lexical_analyzer/</guid>
+      <description>&lt;p&gt;c++实现一个c语言的词法分析器，对单词进行识别和编码&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

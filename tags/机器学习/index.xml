@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>机器学习 on Alex&#39;s Blog</title>
+    <link>https://chenkangyang.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/</link>
+    <description>Recent content in 机器学习 on Alex&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
+    <lastBuildDate>Fri, 24 May 2019 02:03:56 +0800</lastBuildDate>
+    
+	<atom:link href="https://chenkangyang.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>什么情况下需要使用机器学习?</title>
+      <link>https://chenkangyang.github.io/post/why_ml/</link>
+      <pubDate>Fri, 24 May 2019 02:03:56 +0800</pubDate>
+      
+      <guid>https://chenkangyang.github.io/post/why_ml/</guid>
+      <description>&lt;p&gt;什么时候需要机器学习?
+&amp;mdash;-“特征”和”标签”之间存在复杂的未知关系, 难以描述其”推理过程”, 可以使用机器学习模型去学习这一黑箱”推理过程”, 以提高效率&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

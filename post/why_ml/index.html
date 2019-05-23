@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>什么情况下需要使用机器学习?</title>
+
+  
+  
+  <link href="//cdn.jsdelivr.net" rel="dns-prefetch">
+  <link href="//cdnjs.cloudflare.com" rel="dns-prefetch">
+  
+  <link href="//at.alicdn.com" rel="dns-prefetch">
+  
+  <link href="//fonts.googleapis.com" rel="dns-prefetch">
+  <link href="//fonts.gstatic.com" rel="dns-prefetch">
+  
+  
+  
+  
+  
+
+  
+
+  
+  <meta name="author" content="Alex Chen">
+  <meta name="description" content="什么时候需要机器学习? &amp;mdash;-“特征”和”标签”之间存在复杂的未知关系, 难以描述其”推理过程”, 可以使用机器学习模型去学习这一黑箱”推理过程”, 以提高效率
+">
+
+  
+  
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@gohugoio">
+    <meta name="twitter:title" content="什么情况下需要使用机器学习?">
+    <meta name="twitter:description" content="什么时候需要机器学习? &amp;mdash;-“特征”和”标签”之间存在复杂的未知关系, 难以描述其”推理过程”, 可以使用机器学习模型去学习这一黑箱”推理过程”, 以提高效率
+">
+    <meta name="twitter:image" content="/images/avatar.png">
+  
+
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="什么情况下需要使用机器学习?">
+  <meta property="og:description" content="什么时候需要机器学习? &amp;mdash;-“特征”和”标签”之间存在复杂的未知关系, 难以描述其”推理过程”, 可以使用机器学习模型去学习这一黑箱”推理过程”, 以提高效率
+">
+  <meta property="og:url" content="https://chenkangyang.github.io/post/why_ml/">
+  <meta property="og:image" content="/images/avatar.png">
+
+
+
+
+<meta name="generator" content="Hugo 0.52">
+
+
+<link rel="canonical" href="https://chenkangyang.github.io/post/why_ml/">
+
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="format-detection" content="telephone=no,email=no,adress=no">
+<meta http-equiv="Cache-Control" content="no-transform">
+
+
+<meta name="robots" content="index,follow">
+<meta name="referrer" content="origin-when-cross-origin">
+<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc">
+<meta name="msvalidate.01" content="22596E34341DD1D17D6022C44647E587">
+
+
+
+
+
+<meta name="theme-color" content="#02b875">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Alex&#39;s Blog">
+<meta name="msapplication-tooltip" content="Alex&#39;s Blog">
+<meta name='msapplication-navbutton-color' content="#02b875">
+<meta name="msapplication-TileColor" content="#02b875">
+<meta name="msapplication-TileImage" content="/icons/icon-144x144.png">
+<link rel="icon" href="https://chenkangyang.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://chenkangyang.github.io/icons/icon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://chenkangyang.github.io/icons/icon-32x32.png">
+<link rel="icon" sizes="192x192" href="https://chenkangyang.github.io/icons/icon-192x192.png">
+<link rel="apple-touch-icon" href="https://chenkangyang.github.io/icons/icon-152x152.png">
+<link rel="manifest" href="https://chenkangyang.github.io/manifest.json">
+
+
+<link rel="preload" href="https://chenkangyang.github.io/styles/main-rendered.min.css" as="style">
+
+
+<link rel="preload" href="https://fonts.googleapis.com/css?family=Lobster" as="style">
+<link rel="preload" href="https://chenkangyang.github.io/images/avatar.png" as="image">
+<link rel="preload" href="https://chenkangyang.github.io/images/grey-prism.svg" as="image">
+
+
+<style>
+  body {
+    background: rgb(244, 243, 241) url('/images/grey-prism.svg') repeat fixed;
+  }
+</style>
+<link rel="stylesheet" href="https://chenkangyang.github.io/styles/main-rendered.min.css">
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.2/dist/medium-zoom.min.js"></script>
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/video.js@7.3.0/dist/video-js.min.css">
+
+
+
+  
+  
+<!--[if lte IE 8]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/videojs-ie8@1.1.2/dist/videojs-ie8.min.js"></script>
+<![endif]-->
+
+<!--[if lte IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/eligrey-classlist-js-polyfill@1.2.20180112/classList.min.js"></script>
+<![endif]-->
+
+
+</head>
+  <body>
+    <div class="suspension">
+      <a role="button" aria-label="Go to top" title="Go to top" class="to-top is-hide"><span class="icon icon-up" aria-hidden="true"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://chenkangyang.github.io/images/avatar.png" alt="Avatar">
+  
+  <h2 class="title">Alex&#39;s Blog</h2>
+  
+  <p class="subtitle">~ Explore the world. ~</p>
+  <button class="menu-toggle" type="button" aria-label="Main Menu" aria-expanded="false" tab-index="0">
+    <span class="icon icon-menu" aria-hidden="true"></span>
+  </button>
+
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+          
+          
+           is-active">
+          <a href="https://chenkangyang.github.io/">Home</a>
+        </li>
+      
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://github.com/chenkangyang">Github</a>
+        </li>
+      
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://chenkangyang.github.io/tags/">Tags</a>
+        </li>
+      
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://chenkangyang.github.io/about/">About</a>
+        </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list"><li class="social-item">
+          <a href="mailto:chenkangyang98@gmail.com" title="Email" aria-label="Email">
+            <span class="icon icon-email" aria-hidden="true"></span>
+          </a>
+        </li><li class="social-item">
+          <a href="//github.com/chenkangyang" rel="me" title="GitHub" aria-label="GitHub">
+	    <span class="icon icon-github" aria-hidden="true"></span>
+          </a>
+        </li><li class="social-item">
+          <a href="//weibo.com/%e6%b8%85%e6%b5%81%e5%a6%82%e6%88%91" rel="me" title="Weibo" aria-label="Weibo">
+            <span class="icon icon-weibo" aria-hidden="true"></span>
+          </a>
+        </li><li class="social-item">
+          <a href="https://chenkangyang.github.io/images/qrcode.jpeg" rel="me" title="Wechat" aria-label="Wechat">
+            <span class="icon icon-wechat" aria-hidden="true"></span>
+          </a>
+        </li></ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">什么情况下需要使用机器学习?</h1>
+      <p class="post-meta">@Alex Chen · May 24, 2019 · 1 min read</p>
+    </header>
+    <article class="post-content"><p>什么时候需要机器学习?
+&mdash;-“特征”和”标签”之间存在复杂的未知关系, 难以描述其”推理过程”, 可以使用机器学习模型去学习这一黑箱”推理过程”, 以提高效率</p>
+
+<h3 id="什么时候需要机器学习">什么时候需要机器学习?</h3>
+
+<blockquote>
+<p><code>特征</code>和<code>标签</code>之间存在复杂的未知关系, 难以描述其<code>推理过程</code>, 可以使用机器学习模型去学习这一黑箱<code>推理过程</code>, 以提高效率</p>
+</blockquote>
+
+<h3 id="举两个例子">举两个例子</h3>
+
+<h4 id="第一个例子-分类">第一个例子 (分类)</h4>
+
+<p>分类猫狗, 如何界定”猫狗”? 并没有一个严格的规定标准, 而人类仅通过观察+推理就可以判断出来. 当遇到大规模的分类问题, 人类的计算和推理速度就跟不上了, 可能出现误判. 此时, 可以利用机器的计算效率高的特点来代替人类, 目标在于达到接近人类分类的精度.</p>
+
+<p>这种问题的特点在于: <code>特征</code>和<code>标签</code>之间存在未知的模糊的非线性的复杂关系, 人类也不清楚自己的推理模式, 此时就需要机器去学习这一套黑箱的推理模式了.</p>
+
+<p>在此类问题上, 研究者可以探索的方向有: 1. 达到接近人类的预测精度 2. 减少计算开销 等等</p>
+
+<h4 id="第二个例子-回归">第二个例子 (回归)</h4>
+
+<p>预测水体中的叶绿素含量, 测量叶绿素所需要花费的工作, 工序, 时长可能非常复杂, 耗费人力和时间, 但是若仅仅选择一些方便得到指标 (这些指标可能会影响到叶绿素的含量), 探究选择的这些”特征”和”标签”之间的关系, 这一关系是模糊的复杂的人类未知的, 找不到合适的推理规则. 此时, 可以利用机器学习学习”特征”和”标签”之间的黑箱的关系, 以快速高效的预测叶绿素含量</p>
+
+<p>在此类问题上, 研究者可以探索的方向有: 1. <code>特征</code>的选择方式 2. 减小预测值与真实值的误差</p>
+
+<h4 id="研究动机的讨论">研究动机的讨论</h4>
+
+<p>目前在做的一个课题, 在<strong>研究动机</strong>上有不少值得讨论的地方.</p>
+
+<p><strong>问题描述</strong>如下:</p>
+
+<blockquote>
+<p>我国的地表水质等级划分为6个等级, 能够影响地表水质等级的指标共有24个. 现有只有4个水质指标和对应的水质等级的数据, 而我国的地表水质标准规定了其中21个指标值所对应的水质等级. 采用<code>单因子评价法</code>给出水质等级, 即: 每一个指标值都能得到一个水质等级, 最终确定的水质等级取决于21个等级中最差的那一个.</p>
+</blockquote>
+
+<p><code>单因子评价法</code>很明显有很大局限, 因此得到一个<strong>研究动机</strong>: “寻找一个更好更科学的评价方法来划分水质等级”. 基于此动机, 我们可以同时考虑多个因子, 定义一个综合评价值, 选择其中一些水质指标计算综合评价值, 按照所有样本的综合评价值来划分水质等级.</p>
+
+<p>于是很多研究者, 考虑使用了综合指数法, 内梅罗水质指数法, 模糊数学法, 灰色聚类法进行了研究. 这些都是不需要进行监督学习的方法.</p>
+
+<p>在YanHan的论文中, <code>标签</code>为数字1, 2, 3, 4, 5, 6. 这个<code>标签</code>在文中称之为<code>WQS</code>. 他使用了ANFIS作为推理系统, 推理系统吃进指标值, 并输出<code>WQS</code>, <code>WQS</code>若介于(0, 1.5)为1类水, (1.5, 2.5)为2类水, 以此类推, &gt;5.5为6类水. 基于CNEMC的监测数据训练模型, 最后给出分类准确度和所有样本预测<code>WQS</code>和真实<code>WQS</code>的RMSE.</p>
+
+<p>乍一看没什么问题, 许多研究者也都这样FOLLOW下去了. 作为一个FOLLOWER,  我也就是给出了一些新型的机器学习模型来提高预测准确度罢了.</p>
+
+<p><strong>但是</strong>, 在此问题上, 真的要选择推理系统吗去推理<code>标签</code>吗? 训练数据的<code>标签</code>难道不是通过<code>单因子评价法</code>去<code>查表</code>就能100%确定了吗, 那大家预测的80%, 90%的准确度其真正意义是什么呢? 全国流域为什么只公布了4个主要的水质指标, 不公布剩下的(21-4)个, 怎么通过<code>单因子评价法</code>去<code>查表</code>确定水质等级? 那么, 看这4个指标分别属于哪一类水, 选出最差的类别代替最终结果, 按此<code>单因子评价法</code>的逻辑写一个小程序, 去判断水质等级, 是不是更方便? 更接近于21个因子<code>查表</code>得到的结果?</p>
+
+<p>疑惑的问题很多, 看了以往的论文, 我相信大部分的研究者都没有去深究, 仅仅认为单因子评价不好, 而恰巧有4个因子的已公布数据, 不如来做个多因子综合评价, 确定这4个<code>特征</code>和<code>标签</code>的关系, 更进一步, 换用不同的模型来确定关系.</p>
+
+<p>回到最初, 什么时候需要机器学习?</p>
+
+<blockquote>
+<p><code>特征</code>和<code>标签</code>之间存在复杂的未知关系, 难以描述其<code>推理过程</code>, 可以使用机器学习模型去学习这一黑箱<code>推理过程</code>, 以提高效率.</p>
+</blockquote>
+
+<p>此问题中, 21个水质指标和水质等级的关系非常简单. <code>推理过程</code>使用<code>单因子评价法</code>即可100%得到正确的水质等级. 完全不需要其他的推理系统. 而现有数据只有其中4个<code>特征</code>和<code>标签</code>, 他们的关系未知, 也许4个指标采取<code>单因子评价</code>去<code>查表</code>这一逻辑就是他们的关系, 也许是存在模糊复杂的非线性关系, 需要借助机器学习模型描述这一黑箱<code>推理过程</code>.</p>
+
+<p>可以假设一个很有意思的问题: 国家地表水质标准仅通过4个已公布的水质指标就可以<code>查表</code>100%确定其等级, 此时的<code>推理过程=单因子评价法</code>, 若选用一种机器学习模型, 吃进4个指标, 吐出水质等级, 饶了一大圈, 终于在所有样本上得到了80%的预测准确度, 这个80%的意义很有趣——该机器学习模型学习到的<code>推理过程</code>和已有的推理过程<code>单因子评价法</code>的接近程度为80%.</p>
+
+<p>举个简单的例子, 已有算术推理过程为<code>加法</code>, 有好多的训练样本: 1+1=2, 2+2=4, ………… 我们让一个机器学习模型吃进等号左边的两个数字, 等号右边的数字为<code>标签</code>, 经过一系列复杂的计算, 训练模型中的一堆参数, 模型吐出了 [2.01, 3.99,……….], 计算RMSE为0.01%, 模型学会了<code>加法</code>这一<code>推理过程</code>, 并和真实的<code>加法</code>计算得到的结果误差只有0.01%! 哇, 好蠢啊!</p>
+
+<p>好了, 回到手中的训练样本, 4个<code>特征</code>和标签之间的关系未知, 满足使用机器学习模型的条件, 可以使用, 但在此之前不如先用<code>单因子评价法</code>的逻辑写一个小程序, 看看这套逻辑是否能从21个<code>特征</code><strong>迁移</strong>到4个<code>特征</code>上.</p>
+
+<p>最后, 总结几点此问题研究的意义:
+1. 仅利用4个方便测量的水质指标, 就能预测水质等级. 没必要测量所有21个水质指标, 其中包括粪大肠杆菌群, 挥发酚等难以测量并且耗费人力物力的值.
+2. 利用机器学习处理大规模数据, 高效率高准确度</p></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://chenkangyang.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0"><span class="tag">机器学习</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  
+<footer class="site-footer">
+  <p>© 2017-2019 Alex&#39;s Blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank" rel="noopener">Nuo</a>.</p>
+  
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/smooth-scroll@15.0.0/dist/smooth-scroll.min.js"></script>
+
+
+
+<script async src="https://cdn.jsdelivr.net/npm/video.js@7.3.0/dist/video.min.js"></script>
+
+
+
+
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    },
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+
+
+<script src="https://chenkangyang.github.io/scripts/index.min.js"></script>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('\/service-worker.js').then(function() {
+      console.log('[ServiceWorker] Registered');
+    });
+  }
+</script>
+
+
+
+
+
+
+
+
+  </body>
+</html>
