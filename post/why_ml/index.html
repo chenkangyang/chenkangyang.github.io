@@ -210,7 +210,7 @@
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">什么情况下需要使用机器学习?</h1>
-      <p class="post-meta">@Alex Chen · May 24, 2019 · 1 min read</p>
+      <p class="post-meta">@Alex Chen · May 24, 2019 · 2 min read</p>
     </header>
     <article class="post-content"><p>什么时候需要机器学习?
 &mdash;-“特征”和”标签”之间存在复杂的未知关系, 难以描述其”推理过程”, 可以使用机器学习模型去学习这一黑箱”推理过程”, 以提高效率</p>
@@ -249,9 +249,9 @@
 
 <p><code>单因子评价法</code>很明显有很大局限, 因此得到一个<strong>研究动机</strong>: “寻找一个更好更科学的评价方法来划分水质等级”. 基于此动机, 我们可以同时考虑多个因子, 定义一个综合评价值, 选择其中一些水质指标计算综合评价值, 按照所有样本的综合评价值来划分水质等级.</p>
 
-<p>于是很多研究者, 考虑使用了综合指数法, 内梅罗水质指数法, 模糊数学法, 灰色聚类法进行了研究. 这些都是不需要进行监督学习的方法.</p>
+<p>于是很多研究者, 考虑使用了综合指数法, 内梅罗水质指数法, 模糊数学法, 灰色聚类法进行了研究. 这些都是不需要进行监督学习进行训练的方法.</p>
 
-<p>在YanHan的论文中, <code>标签</code>为数字1, 2, 3, 4, 5, 6. 这个<code>标签</code>在文中称之为<code>WQS</code>. 他使用了ANFIS作为推理系统, 推理系统吃进指标值, 并输出<code>WQS</code>, <code>WQS</code>若介于(0, 1.5)为1类水, (1.5, 2.5)为2类水, 以此类推, &gt;5.5为6类水. 基于CNEMC的监测数据训练模型, 最后给出分类准确度和所有样本预测<code>WQS</code>和真实<code>WQS</code>的RMSE.</p>
+<p>在YanHan<sup class="footnote-ref" id="fnref:1"><a href="#fn:1">1</a></sup>的论文中, <code>标签</code>为数字1, 2, 3, 4, 5, 6. 这个<code>标签</code>在文中称之为<code>WQS</code>. 他使用了ANFIS作为推理系统, 推理系统吃进指标值, 并输出<code>WQS</code>, <code>WQS</code>若介于(0, 1.5)为1类水, (1.5, 2.5)为2类水, 以此类推, &gt;5.5为6类水. 基于CNEMC的监测数据训练模型, 最后给出分类准确度和所有样本预测<code>WQS</code>和真实<code>WQS</code>的RMSE.</p>
 
 <p>乍一看没什么问题, 许多研究者也都这样FOLLOW下去了. 作为一个FOLLOWER,  我也就是给出了一些新型的机器学习模型来提高预测准确度罢了.</p>
 
@@ -275,7 +275,16 @@
 
 <p>最后, 总结几点此问题研究的意义:
 1. 仅利用4个方便测量的水质指标, 就能预测水质等级. 没必要测量所有21个水质指标, 其中包括粪大肠杆菌群, 挥发酚等难以测量并且耗费人力物力的值.
-2. 利用机器学习处理大规模数据, 高效率高准确度</p></article>
+2. 利用机器学习处理大规模数据, 高效率高准确度</p>
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:1">Yan, H., Zou, Z., Wang, H., 2010. Adaptive neuro fuzzy inference system for classification of water quality status. Journal of Environmental Sciences 22, 1891–1896.
+ <a class="footnote-return" href="#fnref:1"><sup>[return]</sup></a></li>
+</ol>
+</div></article>
     <footer class="post-footer">
       
       <ul class="post-tags">
