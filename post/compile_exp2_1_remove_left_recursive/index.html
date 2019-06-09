@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>移除文法的左递归</title>
+
+  
+  
+  <link href="//cdn.jsdelivr.net" rel="dns-prefetch">
+  <link href="//cdnjs.cloudflare.com" rel="dns-prefetch">
+  
+  <link href="//at.alicdn.com" rel="dns-prefetch">
+  
+  <link href="//fonts.googleapis.com" rel="dns-prefetch">
+  <link href="//fonts.gstatic.com" rel="dns-prefetch">
+  
+  
+  
+  
+  
+
+  
+
+  
+  <meta name="author" content="Alex Chen">
+  <meta name="description" content="移除文法的左递归, 未完待续
+">
+
+  
+  
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@gohugoio">
+    <meta name="twitter:title" content="移除文法的左递归">
+    <meta name="twitter:description" content="移除文法的左递归, 未完待续
+">
+    <meta name="twitter:image" content="/images/avatar.png">
+  
+
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="移除文法的左递归">
+  <meta property="og:description" content="移除文法的左递归, 未完待续
+">
+  <meta property="og:url" content="https://chenkangyang.github.io/post/compile_exp2_1_remove_left_recursive/">
+  <meta property="og:image" content="/images/avatar.png">
+
+
+
+
+<meta name="generator" content="Hugo 0.52">
+
+
+<link rel="canonical" href="https://chenkangyang.github.io/post/compile_exp2_1_remove_left_recursive/">
+
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="format-detection" content="telephone=no,email=no,adress=no">
+<meta http-equiv="Cache-Control" content="no-transform">
+
+
+<meta name="robots" content="index,follow">
+<meta name="referrer" content="origin-when-cross-origin">
+<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc">
+<meta name="msvalidate.01" content="22596E34341DD1D17D6022C44647E587">
+
+
+
+
+
+<meta name="theme-color" content="#02b875">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Alex&#39;s Blog">
+<meta name="msapplication-tooltip" content="Alex&#39;s Blog">
+<meta name='msapplication-navbutton-color' content="#02b875">
+<meta name="msapplication-TileColor" content="#02b875">
+<meta name="msapplication-TileImage" content="/icons/icon-144x144.png">
+<link rel="icon" href="https://chenkangyang.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://chenkangyang.github.io/icons/icon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://chenkangyang.github.io/icons/icon-32x32.png">
+<link rel="icon" sizes="192x192" href="https://chenkangyang.github.io/icons/icon-192x192.png">
+<link rel="apple-touch-icon" href="https://chenkangyang.github.io/icons/icon-152x152.png">
+<link rel="manifest" href="https://chenkangyang.github.io/manifest.json">
+
+
+<link rel="preload" href="https://chenkangyang.github.io/styles/main-rendered.min.css" as="style">
+
+
+<link rel="preload" href="https://fonts.googleapis.com/css?family=Lobster" as="style">
+<link rel="preload" href="https://chenkangyang.github.io/images/avatar.png" as="image">
+<link rel="preload" href="https://chenkangyang.github.io/images/grey-prism.svg" as="image">
+
+
+<style>
+  body {
+    background: rgb(244, 243, 241) url('/images/grey-prism.svg') repeat fixed;
+  }
+</style>
+<link rel="stylesheet" href="https://chenkangyang.github.io/styles/main-rendered.min.css">
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.2/dist/medium-zoom.min.js"></script>
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/video.js@7.3.0/dist/video-js.min.css">
+
+
+
+  
+  
+<!--[if lte IE 8]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/videojs-ie8@1.1.2/dist/videojs-ie8.min.js"></script>
+<![endif]-->
+
+<!--[if lte IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/eligrey-classlist-js-polyfill@1.2.20180112/classList.min.js"></script>
+<![endif]-->
+
+
+</head>
+  <body>
+    <div class="suspension">
+      <a role="button" aria-label="Go to top" title="Go to top" class="to-top is-hide"><span class="icon icon-up" aria-hidden="true"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://chenkangyang.github.io/images/avatar.png" alt="Avatar">
+  
+  <h2 class="title">Alex&#39;s Blog</h2>
+  
+  <p class="subtitle">~ It was the best of times, it was the worst of times. ~</p>
+  <button class="menu-toggle" type="button" aria-label="Main Menu" aria-expanded="false" tab-index="0">
+    <span class="icon icon-menu" aria-hidden="true"></span>
+  </button>
+
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+          
+          
+           is-active">
+          <a href="https://chenkangyang.github.io/">Home</a>
+        </li>
+      
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://github.com/chenkangyang">Github</a>
+        </li>
+      
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://chenkangyang.github.io/tags/">Tags</a>
+        </li>
+      
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://chenkangyang.github.io/about/">About</a>
+        </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list"><li class="social-item">
+          <a href="mailto:chenkangyang98@gmail.com" title="Email" aria-label="Email">
+            <span class="icon icon-email" aria-hidden="true"></span>
+          </a>
+        </li><li class="social-item">
+          <a href="//github.com/chenkangyang" rel="me" title="GitHub" aria-label="GitHub">
+	    <span class="icon icon-github" aria-hidden="true"></span>
+          </a>
+        </li><li class="social-item">
+          <a href="//weibo.com/%e6%b8%85%e6%b5%81%e5%a6%82%e6%88%91" rel="me" title="Weibo" aria-label="Weibo">
+            <span class="icon icon-weibo" aria-hidden="true"></span>
+          </a>
+        </li><li class="social-item">
+          <a href="https://chenkangyang.github.io/images/qrcode.jpeg" rel="me" title="Wechat" aria-label="Wechat">
+            <span class="icon icon-wechat" aria-hidden="true"></span>
+          </a>
+        </li></ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">移除文法的左递归</h1>
+      <p class="post-meta">@Alex Chen · May 28, 2019 · 4 min read</p>
+    </header>
+    <article class="post-content"><p>移除文法的左递归, 未完待续</p>
+
+<p>代码如下:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cstring&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;map&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;set&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">#define MAX 500
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+
+<span style="color:#66d9ef">class</span><span style="color:#960050;background-color:#1e0010"> </span><span style="color:#a6e22e">WF</span>
+{
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    string left; <span style="color:#75715e">// 文法左部
+</span><span style="color:#75715e"></span>    set<span style="color:#f92672">&lt;</span>string<span style="color:#f92672">&gt;</span> right; <span style="color:#75715e">// 文法右部 是一组string
+</span><span style="color:#75715e"></span>    WF (<span style="color:#66d9ef">const</span> string <span style="color:#f92672">&amp;</span>temp) { <span style="color:#75715e">// 初始化规则, 左部为传入非终结界符, 右部为空
+</span><span style="color:#75715e"></span>        left <span style="color:#f92672">=</span> temp;
+        right.clear();
+    }
+    <span style="color:#66d9ef">void</span> print ( ) {
+        printf ( <span style="color:#e6db74">&#34;%s::=&#34;</span> , left.c_str() );
+        set<span style="color:#f92672">&lt;</span>string<span style="color:#f92672">&gt;::</span>iterator it <span style="color:#f92672">=</span> right.begin();
+        printf ( <span style="color:#e6db74">&#34;%s&#34;</span> , it<span style="color:#f92672">-&gt;</span>c_str());
+        it<span style="color:#f92672">++</span>;
+        <span style="color:#66d9ef">for</span> ( ; it<span style="color:#f92672">!=</span> right.end() ; it<span style="color:#f92672">++</span> )
+            printf ( <span style="color:#e6db74">&#34;|%s&#34;</span> , it<span style="color:#f92672">-&gt;</span>c_str() );
+        puts(<span style="color:#e6db74">&#34;&#34;</span>);
+    }
+    <span style="color:#66d9ef">void</span> insertRight(<span style="color:#66d9ef">const</span> string <span style="color:#f92672">&amp;</span>temp) {
+        <span style="color:#75715e">// set 调用 insert 的时候是不会插入重复元素的
+</span><span style="color:#75715e"></span>        right.insert(temp);
+    }
+};
+
+map<span style="color:#f92672">&lt;</span>string, <span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> VN_index; <span style="color:#75715e">// &lt;规则左部, 在 VN_vector中 的索引&gt;
+</span><span style="color:#75715e"></span>vector <span style="color:#f92672">&lt;</span>WF<span style="color:#f92672">&gt;</span> VN_vector; <span style="color:#75715e">// 各规则构成的数组,
+</span><span style="color:#75715e"></span>string start;
+<span style="color:#66d9ef">bool</span> used[MAX];
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">remove1</span> () { <span style="color:#75715e">// 消除间接左递归: 若右部的首字符是之前出现过的非终结符, 则替换掉
+</span><span style="color:#75715e"></span>    cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;======消除间接左递归======&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
+
+    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> VN_vector.size(); i<span style="color:#f92672">++</span>) {
+        <span style="color:#75715e">// cout &lt;&lt; &#34;i=&#34; &lt;&lt; i &lt;&lt; &#34;, 当前分析非终结符:&#34; &lt;&lt; VN_vector[i].left &lt;&lt; endl;
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// cout &lt;&lt; &#34;+++正在分析+++&#34; &lt;&lt; endl;
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// VN_vector[i].print();
+</span><span style="color:#75715e"></span>
+        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; j <span style="color:#f92672">&lt;</span> i; j<span style="color:#f92672">++</span>) {
+            vector<span style="color:#f92672">&lt;</span>string<span style="color:#f92672">&gt;</span> cont; <span style="color:#75715e">// cont 保存非界符符的所有右部
+</span><span style="color:#75715e"></span>            set<span style="color:#f92672">&lt;</span>string<span style="color:#f92672">&gt;&amp;</span> right1 <span style="color:#f92672">=</span> VN_vector[i].right;
+            set<span style="color:#f92672">&lt;</span>string<span style="color:#f92672">&gt;&amp;</span> right2 <span style="color:#f92672">=</span> VN_vector[j].right;
+            <span style="color:#66d9ef">char</span> ch <span style="color:#f92672">=</span> VN_vector[j].left[<span style="color:#ae81ff">0</span>]; <span style="color:#75715e">// 之前规则的左部
+</span><span style="color:#75715e"></span>            set<span style="color:#f92672">&lt;</span>string<span style="color:#f92672">&gt;::</span>iterator it1 <span style="color:#f92672">=</span> right1.begin();
+            set<span style="color:#f92672">&lt;</span>string<span style="color:#f92672">&gt;::</span>iterator it2;
+
+            <span style="color:#75715e">// 遍历当前规则的所有右部, 若首符号=之前规则的左部, 将&#34;之前规则的所有右部+当前规则右部首符号以外的字符&#34;存入cont
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">for</span> (; it1 <span style="color:#f92672">!=</span> right1.end() ; it1<span style="color:#f92672">++</span>) {
+                <span style="color:#66d9ef">if</span> (it1<span style="color:#f92672">-&gt;</span>at(<span style="color:#ae81ff">0</span>) <span style="color:#f92672">==</span> ch) {
+                    <span style="color:#66d9ef">for</span> (it2 <span style="color:#f92672">=</span> right2.begin(); it2 <span style="color:#f92672">!=</span> right2.end(); it2<span style="color:#f92672">++</span>) {
+                        cont.push_back(<span style="color:#f92672">*</span>it2 <span style="color:#f92672">+</span> it1<span style="color:#f92672">-&gt;</span>substr(<span style="color:#ae81ff">1</span>));
+                    }
+                }
+            }
+
+            <span style="color:#75715e">// 若首符号=之前规则的左部, 删除该右部分; 否则将该右部存入cont
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">int</span> nn <span style="color:#f92672">=</span> right1.size();
+            <span style="color:#66d9ef">while</span> (nn<span style="color:#f92672">--</span>) {
+                <span style="color:#66d9ef">if</span> (right1.begin()<span style="color:#f92672">-&gt;</span>at(<span style="color:#ae81ff">0</span>) <span style="color:#f92672">==</span> ch) {
+                    <span style="color:#75715e">// cout &lt;&lt; &#34;删除&#34; &lt;&lt;  *right1.begin()  &lt;&lt; endl;
+</span><span style="color:#75715e"></span>                    right1.erase(right1.begin());
+                }
+                <span style="color:#66d9ef">else</span>
+                {
+                    <span style="color:#75715e">// cout &lt;&lt; &#34;保存&#34; &lt;&lt; *right1.begin() &lt;&lt; &#34;到cont&#34; &lt;&lt; endl;
+</span><span style="color:#75715e"></span>                    cont.push_back(<span style="color:#f92672">*</span>right1.begin());
+                    <span style="color:#75715e">// cout &lt;&lt; &#34;删除&#34; &lt;&lt;  *right1.begin()  &lt;&lt; endl;
+</span><span style="color:#75715e"></span>                    right1.erase(right1.begin());
+                }
+            } <span style="color:#75715e">// 共nn个右部, 每删除一个右部分, 后面的右部会补上来
+</span><span style="color:#75715e"></span>
+            <span style="color:#75715e">// cout &lt;&lt; &#34;将cont中的所有符号插入到当前规则的右部&#34; &lt;&lt; endl;
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> cont.size(); i<span style="color:#f92672">++</span>) {
+                right1.insert(cont[i]);
+            }
+        }
+    }
+<span style="color:#75715e">#define DEBUG
+</span><span style="color:#75715e">#ifdef DEBUG
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> VN_vector.size(); i<span style="color:#f92672">++</span>) {
+        VN_vector[i].print();
+    }
+<span style="color:#75715e">#endif
+</span><span style="color:#75715e"></span>}
+
+
+<span style="color:#75715e">//消除直接左递归
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">remove2</span> ( )
+{
+    cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;======消除直接左递归======&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
+        <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span> ; i <span style="color:#f92672">&lt;</span> VN_vector.size(); i<span style="color:#f92672">++</span> ) {
+
+        <span style="color:#75715e">// 旧符号
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">char</span> ch <span style="color:#f92672">=</span> VN_vector[i].left[<span style="color:#ae81ff">0</span>]; <span style="color:#75715e">// 左部
+</span><span style="color:#75715e"></span>        set<span style="color:#f92672">&lt;</span>string<span style="color:#f92672">&gt;&amp;</span> right1 <span style="color:#f92672">=</span> VN_vector[i].right; <span style="color:#75715e">// 右部
+</span><span style="color:#75715e"></span>        set<span style="color:#f92672">&lt;</span>string<span style="color:#f92672">&gt;::</span>iterator it1 <span style="color:#f92672">=</span> right1.begin(); <span style="color:#75715e">// 右部分迭代器
+</span><span style="color:#75715e"></span>        string new_left <span style="color:#f92672">=</span> VN_vector[i].left.substr(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>)<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\&#39;</span><span style="color:#e6db74">&#34;</span>; <span style="color:#75715e">// 新符号左部
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">bool</span> flag <span style="color:#f92672">=</span> true; <span style="color:#75715e">// flag = false 时, 说明出现了直接左递归
+</span><span style="color:#75715e"></span>
+        <span style="color:#75715e">// 判断旧符号右部是否出现左递归
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">for</span> ( ; it1 <span style="color:#f92672">!=</span> right1.end(); it1<span style="color:#f92672">++</span>) {
+            <span style="color:#66d9ef">if</span> (it1<span style="color:#f92672">-&gt;</span>at(<span style="color:#ae81ff">0</span>) <span style="color:#f92672">==</span> ch)
+            {
+                VN_vector.push_back(WF(new_left));
+                VN_index[new_left] <span style="color:#f92672">=</span> VN_vector.size();
+                flag <span style="color:#f92672">=</span> false;
+                <span style="color:#66d9ef">break</span>;
+            }
+        }
+        <span style="color:#66d9ef">if</span> (flag) <span style="color:#66d9ef">continue</span>; <span style="color:#75715e">// 没有出现直接左递归, 则考量下一个右部
+</span><span style="color:#75715e"></span>
+        vector<span style="color:#f92672">&lt;</span>string<span style="color:#f92672">&gt;</span> cont; <span style="color:#75715e">// 保存旧符号的右部
+</span><span style="color:#75715e"></span>
+        <span style="color:#75715e">// 新符号
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">int</span> index <span style="color:#f92672">=</span> VN_index[new_left] <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
+        set<span style="color:#f92672">&lt;</span>string<span style="color:#f92672">&gt;&amp;</span> new_right <span style="color:#f92672">=</span> VN_vector[index].right; <span style="color:#75715e">// 新符号的右部
+</span><span style="color:#75715e"></span>        new_right.insert(<span style="color:#e6db74">&#34;~&#34;</span>);
+
+        set<span style="color:#f92672">&lt;</span>string<span style="color:#f92672">&gt;&amp;</span> _right1 <span style="color:#f92672">=</span> VN_vector[i].right; <span style="color:#75715e">// vector 插入操作之后, 要重新取地址
+</span><span style="color:#75715e"></span>
+        <span style="color:#75715e">/**************方法1**************/</span>
+        <span style="color:#75715e">// set&lt;string&gt;::iterator it2 = _right1.begin();
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// for (; it2 != _right1.end();)
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// {
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">//     if (it2-&gt;at(0)==ch) {
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">//         new_right.insert(it2-&gt;substr(1)+new_left);
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">//     }
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">//     else
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">//     { 
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">//         cont.push_back(it2-&gt;substr(0)+new_left);
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">//     }
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">//     _right1.erase(it2++);
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// }
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">/**************方法1**************/</span>
+
+        <span style="color:#75715e">/**************方法2**************/</span>
+        <span style="color:#66d9ef">while</span> (<span style="color:#f92672">!</span>_right1.empty())
+        {
+            <span style="color:#66d9ef">if</span> (_right1.begin()<span style="color:#f92672">-&gt;</span>at(<span style="color:#ae81ff">0</span>) <span style="color:#f92672">==</span> ch) {
+                new_right.insert(_right1.begin()<span style="color:#f92672">-&gt;</span>substr(<span style="color:#ae81ff">1</span>)<span style="color:#f92672">+</span>new_left);
+            }
+            <span style="color:#66d9ef">else</span>
+            {
+                cont.push_back(_right1.begin()<span style="color:#f92672">-&gt;</span>substr(<span style="color:#ae81ff">0</span>)<span style="color:#f92672">+</span>new_left);
+            }
+            _right1.erase(_right1.begin());
+        }
+        <span style="color:#75715e">/**************方法2**************/</span>
+
+        <span style="color:#75715e">// puts (&#34;&#34;);
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span> ; i <span style="color:#f92672">&lt;</span> cont.size(); i<span style="color:#f92672">++</span>)
+        {
+            <span style="color:#75715e">// cout &lt;&lt; cont[i] &lt;&lt; endl;
+</span><span style="color:#75715e"></span>            _right1.insert(cont[i]);
+        }
+    }
+<span style="color:#75715e">#define DEBUG
+</span><span style="color:#75715e">#ifdef DEBUG
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span> ; i <span style="color:#f92672">&lt;</span> VN_vector.size() ; i<span style="color:#f92672">++</span> )
+        VN_vector[i].print();
+<span style="color:#75715e">#endif
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">print_VN_vector</span> ()
+{
+    puts(<span style="color:#e6db74">&#34;**********消除左递归后的结果********&#34;</span>);
+    <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span> ; i <span style="color:#f92672">&lt;</span> VN_vector.size() ; i<span style="color:#f92672">++</span> )
+        VN_vector[i].print();
+    puts(<span style="color:#e6db74">&#34;&#34;</span>);
+}
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#66d9ef">char</span> buf[MAX];
+    <span style="color:#66d9ef">int</span> n;
+    VN_index.clear();
+    VN_vector.clear();
+    start<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;E&#34;</span>;
+    puts(<span style="color:#e6db74">&#34;请输入文法G[E]的规则数量&#34;</span>);
+    <span style="color:#66d9ef">while</span> (<span style="color:#f92672">~</span>scanf(<span style="color:#e6db74">&#34;%d&#34;</span>, <span style="color:#f92672">&amp;</span>n))
+    {
+        scanf(<span style="color:#e6db74">&#34;%d&#34;</span>, <span style="color:#f92672">&amp;</span>n);
+        <span style="color:#66d9ef">while</span> (n<span style="color:#f92672">--</span>)
+        {
+            scanf(<span style="color:#e6db74">&#34;%s&#34;</span>, buf);
+            <span style="color:#66d9ef">int</span> len <span style="color:#f92672">=</span> strlen(buf), i;
+            <span style="color:#66d9ef">for</span> (i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> len; i<span style="color:#f92672">++</span>) {
+                <span style="color:#66d9ef">if</span> (buf[i] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;:&#39;</span>) {
+                    buf[i] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+                    <span style="color:#66d9ef">break</span>;
+                }
+            }
+            string left <span style="color:#f92672">=</span> buf; <span style="color:#75715e">// 规则左部
+</span><span style="color:#75715e"></span>            string right <span style="color:#f92672">=</span> buf <span style="color:#f92672">+</span> i <span style="color:#f92672">+</span> <span style="color:#ae81ff">3</span>; <span style="color:#75715e">// 规则右部
+</span><span style="color:#75715e"></span>
+            <span style="color:#75715e">// 分割规则右部, 存入vector
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">int</span> start <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, end <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+            <span style="color:#66d9ef">char</span> delimiter <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;|&#39;</span>;
+            vector <span style="color:#f92672">&lt;</span>string<span style="color:#f92672">&gt;</span> all_rights;
+            <span style="color:#66d9ef">while</span> (end <span style="color:#f92672">&lt;</span> right.size()) {
+                <span style="color:#66d9ef">while</span> (right[end] <span style="color:#f92672">!=</span> delimiter)
+                    end<span style="color:#f92672">++</span>;
+                <span style="color:#66d9ef">if</span> (start <span style="color:#f92672">&lt;</span> end) {
+                    string one_right <span style="color:#f92672">=</span> right.substr(start, end<span style="color:#f92672">-</span>start);
+                    <span style="color:#75715e">// cout &lt;&lt; &#34;右部之一:&#34; &lt;&lt; one_right &lt;&lt; endl;
+</span><span style="color:#75715e"></span>                    all_rights.push_back(one_right);
+                    end<span style="color:#f92672">++</span>; <span style="color:#75715e">// 跳过delimiter
+</span><span style="color:#75715e"></span>                    start <span style="color:#f92672">=</span> end;
+                }
+            }
+
+            <span style="color:#75715e">// 若字典中无该规则的左部, 插入规则左部
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>VN_index[left]) {
+                VN_vector.push_back(WF(left));
+                VN_index[left] <span style="color:#f92672">=</span> VN_vector.size();
+            }
+            <span style="color:#66d9ef">int</span> index <span style="color:#f92672">=</span> VN_index[left] <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>; <span style="color:#75715e">// 该规则在 vector 中的下标
+</span><span style="color:#75715e"></span>
+            <span style="color:#75715e">// 插入规则右部
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> k <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; k <span style="color:#f92672">&lt;</span> all_rights.size(); k<span style="color:#f92672">++</span>) {
+                VN_vector[index].insertRight(all_rights[k]);
+            }
+            <span style="color:#75715e">// VN_vector[index].print(); // 插入某个非终结符完成!
+</span><span style="color:#75715e"></span>        }
+        remove1();
+        remove2();
+        print_VN_vector();
+    }
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+
+<span style="color:#75715e">/* 测试输入
+</span><span style="color:#75715e">3
+</span><span style="color:#75715e">E::=E+T|T
+</span><span style="color:#75715e">T::=+T*F|T
+</span><span style="color:#75715e">F::=(E)|i
+</span><span style="color:#75715e">*/</span>
+
+<span style="color:#75715e">/* 测试间接左递归
+</span><span style="color:#75715e">R::=Rr|a
+</span><span style="color:#75715e">Q::=Qa|R
+</span><span style="color:#75715e">*/</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-zsh" data-lang="zsh">请输入文法G<span style="color:#f92672">[</span>E<span style="color:#f92672">]</span>的规则数量
+<span style="color:#ae81ff">3</span>
+E::<span style="color:#f92672">=</span>E+T|T
+T::<span style="color:#f92672">=</span>+T*F|T
+F::<span style="color:#f92672">=(</span>E<span style="color:#f92672">)</span>|i
+<span style="color:#f92672">======</span>消除间接左递归<span style="color:#f92672">======</span>
+E::<span style="color:#f92672">=</span>E+T|T
+T::<span style="color:#f92672">=</span>+T*F|T
+F::<span style="color:#f92672">=(</span>E<span style="color:#f92672">)</span>|i
+<span style="color:#f92672">======</span>消除直接左递归<span style="color:#f92672">======</span>
+E::<span style="color:#f92672">=</span>TE<span style="color:#e6db74">&#39;
+</span><span style="color:#e6db74">T::=+T*FT&#39;</span>
+F::<span style="color:#f92672">=(</span>E<span style="color:#f92672">)</span>|i
+E<span style="color:#e6db74">&#39;::=+TE&#39;</span>|~
+T<span style="color:#e6db74">&#39;::=~T&#39;</span>
+T<span style="color:#e6db74">&#39;::=&#39;</span>T<span style="color:#e6db74">&#39;|~
+</span><span style="color:#e6db74">**********消除左递归后的结果********
+</span><span style="color:#e6db74">E::=TE&#39;</span>
+T::<span style="color:#f92672">=</span>+T*FT<span style="color:#e6db74">&#39;
+</span><span style="color:#e6db74">F::=(E)|i
+</span><span style="color:#e6db74">E&#39;</span>::<span style="color:#f92672">=</span>+TE<span style="color:#e6db74">&#39;|~
+</span><span style="color:#e6db74">T&#39;</span>::<span style="color:#f92672">=</span>~T<span style="color:#e6db74">&#39;
+</span><span style="color:#e6db74">T&#39;</span>::<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;T&#39;</span>|~</code></pre></div></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://chenkangyang.github.io/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86"><span class="tag">编译原理</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  
+<footer class="site-footer">
+  <p>© 2017-2019 Alex&#39;s Blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank" rel="noopener">Nuo</a>.</p>
+  
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/smooth-scroll@15.0.0/dist/smooth-scroll.min.js"></script>
+
+
+
+<script async src="https://cdn.jsdelivr.net/npm/video.js@7.3.0/dist/video.min.js"></script>
+
+
+
+
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    },
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+
+
+<script src="https://chenkangyang.github.io/scripts/index.min.js"></script>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('\/service-worker.js').then(function() {
+      console.log('[ServiceWorker] Registered');
+    });
+  }
+</script>
+
+
+
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Stl on Alex&#39;s Blog</title>
+    <link>https://chenkangyang.github.io/tags/stl/</link>
+    <description>Recent content in Stl on Alex&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
+    <lastBuildDate>Tue, 28 May 2019 11:16:15 +0800</lastBuildDate>
+    
+	<atom:link href="https://chenkangyang.github.io/tags/stl/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>STL容器的空间管理</title>
+      <link>https://chenkangyang.github.io/post/stl_space_management/</link>
+      <pubDate>Tue, 28 May 2019 11:16:15 +0800</pubDate>
+      
+      <guid>https://chenkangyang.github.io/post/stl_space_management/</guid>
+      <description>&lt;p&gt;编程的时候遇到了内存空间访问的bug, 进而去了解了一下STL容器的内存空间管理, 写一篇总结&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

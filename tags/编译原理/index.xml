@@ -7,10 +7,28 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Sat, 04 May 2019 20:37:05 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 28 May 2019 22:52:03 +0800</lastBuildDate>
     
 	<atom:link href="https://chenkangyang.github.io/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>构造文法的预测分析表</title>
+      <link>https://chenkangyang.github.io/post/compile_exp2_2_make_table/</link>
+      <pubDate>Tue, 28 May 2019 22:52:03 +0800</pubDate>
+      
+      <guid>https://chenkangyang.github.io/post/compile_exp2_2_make_table/</guid>
+      <description>&lt;p&gt;深度优先遍历的方法构造文法的&lt;code&gt;FIRST集&lt;/code&gt;, 未完待续&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>移除文法的左递归</title>
+      <link>https://chenkangyang.github.io/post/compile_exp2_1_remove_left_recursive/</link>
+      <pubDate>Tue, 28 May 2019 19:52:09 +0800</pubDate>
+      
+      <guid>https://chenkangyang.github.io/post/compile_exp2_1_remove_left_recursive/</guid>
+      <description>&lt;p&gt;移除文法的左递归, 未完待续&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>使用c&#43;&#43;实现一个词法分析器</title>

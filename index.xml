@@ -23,6 +23,42 @@
     </item>
     
     <item>
+      <title>前端React, 后端Spring Boot开发一个订单管理系统</title>
+      <link>https://chenkangyang.github.io/post/react_spring/</link>
+      <pubDate>Tue, 04 Jun 2019 11:05:11 +0800</pubDate>
+      
+      <guid>https://chenkangyang.github.io/post/react_spring/</guid>
+      <description>&lt;p&gt;前端React, 后端Spring Boot开发一个&lt;a href=&#34;https://njcky.gitee.io/oms/&#34;&gt;订单管理系统&lt;/a&gt;, 前端接口仍使用mock提供的静态假数据, 未完待续.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>构造文法的预测分析表</title>
+      <link>https://chenkangyang.github.io/post/compile_exp2_2_make_table/</link>
+      <pubDate>Tue, 28 May 2019 22:52:03 +0800</pubDate>
+      
+      <guid>https://chenkangyang.github.io/post/compile_exp2_2_make_table/</guid>
+      <description>&lt;p&gt;深度优先遍历的方法构造文法的&lt;code&gt;FIRST集&lt;/code&gt;, 未完待续&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>移除文法的左递归</title>
+      <link>https://chenkangyang.github.io/post/compile_exp2_1_remove_left_recursive/</link>
+      <pubDate>Tue, 28 May 2019 19:52:09 +0800</pubDate>
+      
+      <guid>https://chenkangyang.github.io/post/compile_exp2_1_remove_left_recursive/</guid>
+      <description>&lt;p&gt;移除文法的左递归, 未完待续&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>STL容器的空间管理</title>
+      <link>https://chenkangyang.github.io/post/stl_space_management/</link>
+      <pubDate>Tue, 28 May 2019 11:16:15 +0800</pubDate>
+      
+      <guid>https://chenkangyang.github.io/post/stl_space_management/</guid>
+      <description>&lt;p&gt;编程的时候遇到了内存空间访问的bug, 进而去了解了一下STL容器的内存空间管理, 写一篇总结&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>什么情况下需要使用机器学习?</title>
       <link>https://chenkangyang.github.io/post/why_ml/</link>
       <pubDate>Fri, 24 May 2019 02:03:56 +0800</pubDate>

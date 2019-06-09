@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>前端React, 后端Spring Boot开发一个订单管理系统</title>
+
+  
+  
+  <link href="//cdn.jsdelivr.net" rel="dns-prefetch">
+  <link href="//cdnjs.cloudflare.com" rel="dns-prefetch">
+  
+  <link href="//at.alicdn.com" rel="dns-prefetch">
+  
+  <link href="//fonts.googleapis.com" rel="dns-prefetch">
+  <link href="//fonts.gstatic.com" rel="dns-prefetch">
+  
+  
+  
+  
+  
+
+  
+
+  
+  <meta name="author" content="Alex Chen">
+  <meta name="description" content="前端React, 后端Spring Boot开发一个订单管理系统, 前端接口仍使用mock提供的静态假数据, 未完待续.
+">
+
+  
+  
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@gohugoio">
+    <meta name="twitter:title" content="前端React, 后端Spring Boot开发一个订单管理系统">
+    <meta name="twitter:description" content="前端React, 后端Spring Boot开发一个订单管理系统, 前端接口仍使用mock提供的静态假数据, 未完待续.
+">
+    <meta name="twitter:image" content="/images/avatar.png">
+  
+
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="前端React, 后端Spring Boot开发一个订单管理系统">
+  <meta property="og:description" content="前端React, 后端Spring Boot开发一个订单管理系统, 前端接口仍使用mock提供的静态假数据, 未完待续.
+">
+  <meta property="og:url" content="https://chenkangyang.github.io/post/react_spring/">
+  <meta property="og:image" content="/images/avatar.png">
+
+
+
+
+<meta name="generator" content="Hugo 0.52">
+
+
+<link rel="canonical" href="https://chenkangyang.github.io/post/react_spring/">
+
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="format-detection" content="telephone=no,email=no,adress=no">
+<meta http-equiv="Cache-Control" content="no-transform">
+
+
+<meta name="robots" content="index,follow">
+<meta name="referrer" content="origin-when-cross-origin">
+<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc">
+<meta name="msvalidate.01" content="22596E34341DD1D17D6022C44647E587">
+
+
+
+
+
+<meta name="theme-color" content="#02b875">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Alex&#39;s Blog">
+<meta name="msapplication-tooltip" content="Alex&#39;s Blog">
+<meta name='msapplication-navbutton-color' content="#02b875">
+<meta name="msapplication-TileColor" content="#02b875">
+<meta name="msapplication-TileImage" content="/icons/icon-144x144.png">
+<link rel="icon" href="https://chenkangyang.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://chenkangyang.github.io/icons/icon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://chenkangyang.github.io/icons/icon-32x32.png">
+<link rel="icon" sizes="192x192" href="https://chenkangyang.github.io/icons/icon-192x192.png">
+<link rel="apple-touch-icon" href="https://chenkangyang.github.io/icons/icon-152x152.png">
+<link rel="manifest" href="https://chenkangyang.github.io/manifest.json">
+
+
+<link rel="preload" href="https://chenkangyang.github.io/styles/main-rendered.min.css" as="style">
+
+
+<link rel="preload" href="https://fonts.googleapis.com/css?family=Lobster" as="style">
+<link rel="preload" href="https://chenkangyang.github.io/images/avatar.png" as="image">
+<link rel="preload" href="https://chenkangyang.github.io/images/grey-prism.svg" as="image">
+
+
+<style>
+  body {
+    background: rgb(244, 243, 241) url('/images/grey-prism.svg') repeat fixed;
+  }
+</style>
+<link rel="stylesheet" href="https://chenkangyang.github.io/styles/main-rendered.min.css">
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.2/dist/medium-zoom.min.js"></script>
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/video.js@7.3.0/dist/video-js.min.css">
+
+
+
+  
+  
+<!--[if lte IE 8]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/videojs-ie8@1.1.2/dist/videojs-ie8.min.js"></script>
+<![endif]-->
+
+<!--[if lte IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/eligrey-classlist-js-polyfill@1.2.20180112/classList.min.js"></script>
+<![endif]-->
+
+
+</head>
+  <body>
+    <div class="suspension">
+      <a role="button" aria-label="Go to top" title="Go to top" class="to-top is-hide"><span class="icon icon-up" aria-hidden="true"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://chenkangyang.github.io/images/avatar.png" alt="Avatar">
+  
+  <h2 class="title">Alex&#39;s Blog</h2>
+  
+  <p class="subtitle">~ It was the best of times, it was the worst of times. ~</p>
+  <button class="menu-toggle" type="button" aria-label="Main Menu" aria-expanded="false" tab-index="0">
+    <span class="icon icon-menu" aria-hidden="true"></span>
+  </button>
+
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+          
+          
+           is-active">
+          <a href="https://chenkangyang.github.io/">Home</a>
+        </li>
+      
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://github.com/chenkangyang">Github</a>
+        </li>
+      
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://chenkangyang.github.io/tags/">Tags</a>
+        </li>
+      
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://chenkangyang.github.io/about/">About</a>
+        </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list"><li class="social-item">
+          <a href="mailto:chenkangyang98@gmail.com" title="Email" aria-label="Email">
+            <span class="icon icon-email" aria-hidden="true"></span>
+          </a>
+        </li><li class="social-item">
+          <a href="//github.com/chenkangyang" rel="me" title="GitHub" aria-label="GitHub">
+	    <span class="icon icon-github" aria-hidden="true"></span>
+          </a>
+        </li><li class="social-item">
+          <a href="//weibo.com/%e6%b8%85%e6%b5%81%e5%a6%82%e6%88%91" rel="me" title="Weibo" aria-label="Weibo">
+            <span class="icon icon-weibo" aria-hidden="true"></span>
+          </a>
+        </li><li class="social-item">
+          <a href="https://chenkangyang.github.io/images/qrcode.jpeg" rel="me" title="Wechat" aria-label="Wechat">
+            <span class="icon icon-wechat" aria-hidden="true"></span>
+          </a>
+        </li></ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">前端React, 后端Spring Boot开发一个订单管理系统</h1>
+      <p class="post-meta">@Alex Chen · Jun 4, 2019 · 2 min read</p>
+    </header>
+    <article class="post-content"><p>前端React, 后端Spring Boot开发一个<a href="https://njcky.gitee.io/oms/">订单管理系统</a>, 前端接口仍使用mock提供的静态假数据, 未完待续.</p>
+
+<h1 id="构建后端">构建后端</h1>
+
+<h2 id="spring项目结构">Spring项目结构</h2>
+
+<p>详细过程见<a href="https://gitee.com/njcky/oms/blob/master/README.md">OMS Readme</a></p>
+
+<p>得到的项目结构如下:</p>
+
+<pre><code>.
+├── README.md
+├── build
+│   ├── classes
+│   │   └── java
+│   │       └── main
+│   │           └── com
+│   │               └── mrky
+│   │                   ├── Application.class
+│   ├── resources
+│   │   └── main
+│   │       └── application.properties
+│   └── tmp
+│       └── compileJava
+├── build.gradle
+├── gradle
+│   └── wrapper
+│       ├── gradle-wrapper.jar
+│       └── gradle-wrapper.properties
+├── gradlew
+├── gradlew.bat
+└── src
+    └── main
+        ├── java
+        │   └── com
+        │       └── mrky
+        │           ├── Application.java
+        ├── main.iml
+        └── resources
+            └── application.properties
+</code></pre>
+
+<h2 id="react项目结构">React项目结构</h2>
+
+<p>使用<a href="https://nowa-webpack.github.io/">Nowa</a>自动构建, 解决方案使用<a href="https://github.com/yezihaohao/react-admin">React-Admin</a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">+--</span> <span style="color:#a6e22e">build</span><span style="color:#960050;background-color:#1e0010">/                                  ---打包的文件目录</span>
+<span style="color:#f92672">+--</span> <span style="color:#a6e22e">config</span><span style="color:#960050;background-color:#1e0010">/                                 ---npm run eject 后的配置文件目录</span>
+<span style="color:#f92672">+--</span> <span style="color:#a6e22e">node_modules</span><span style="color:#960050;background-color:#1e0010">/                           ---npm下载文件目录</span>
+<span style="color:#f92672">+--</span> <span style="color:#66d9ef">public</span><span style="color:#960050;background-color:#1e0010">/</span>
+<span style="color:#f92672">|</span>   <span style="color:#f92672">---</span> <span style="color:#a6e22e">index</span>.<span style="color:#a6e22e">html</span>							<span style="color:#f92672">---</span><span style="color:#a6e22e">首页入口html文件</span>
+<span style="color:#f92672">|</span>   <span style="color:#f92672">---</span> <span style="color:#a6e22e">npm</span>.<span style="color:#a6e22e">json</span>							<span style="color:#f92672">---</span><span style="color:#a6e22e">echarts测试数据</span>
+<span style="color:#f92672">|</span>   <span style="color:#f92672">---</span> <span style="color:#a6e22e">weibo</span>.<span style="color:#a6e22e">json</span>							<span style="color:#f92672">---</span><span style="color:#a6e22e">echarts测试数据</span>
+<span style="color:#f92672">+--</span> <span style="color:#a6e22e">src</span><span style="color:#960050;background-color:#1e0010">/                                    ---核心代码目录</span>
+<span style="color:#f92672">|</span>   <span style="color:#f92672">+--</span> <span style="color:#a6e22e">axios</span>                               <span style="color:#f92672">---</span><span style="color:#a6e22e">http请求存放目录</span>
+<span style="color:#f92672">|</span>   <span style="color:#f92672">|</span>    <span style="color:#f92672">---</span> <span style="color:#a6e22e">index</span>.<span style="color:#a6e22e">js</span>
+<span style="color:#f92672">|</span>   <span style="color:#f92672">+--</span> <span style="color:#a6e22e">components</span>                          <span style="color:#f92672">---</span><span style="color:#a6e22e">各式各样的组件存放目录</span>
+<span style="color:#f92672">|</span>   <span style="color:#f92672">|</span>    <span style="color:#f92672">+--</span> <span style="color:#a6e22e">animation</span>                      <span style="color:#f92672">---</span><span style="color:#a6e22e">动画组件</span>
+<span style="color:#f92672">|</span>   <span style="color:#f92672">|</span>    <span style="color:#f92672">|</span>    <span style="color:#f92672">---</span> ...
+<span style="color:#f92672">|</span>   <span style="color:#f92672">|</span>    <span style="color:#f92672">+--</span> <span style="color:#a6e22e">charts</span>                         <span style="color:#f92672">---</span><span style="color:#a6e22e">图表组件</span>
+<span style="color:#f92672">|</span>   <span style="color:#f92672">|</span>    <span style="color:#f92672">|</span>    <span style="color:#f92672">---</span> ...
+<span style="color:#f92672">|</span>   <span style="color:#f92672">|</span>    <span style="color:#f92672">+--</span> <span style="color:#a6e22e">dashboard</span>                      <span style="color:#f92672">---</span><span style="color:#a6e22e">首页组件</span>
+<span style="color:#f92672">|</span>   <span style="color:#f92672">|</span>    <span style="color:#f92672">|</span>    <span style="color:#f92672">---</span> ...
+<span style="color:#f92672">|</span>   <span style="color:#f92672">|</span>    <span style="color:#f92672">+--</span> <span style="color:#a6e22e">forms</span>                          <span style="color:#f92672">---</span><span style="color:#a6e22e">表单组件</span>
+<span style="color:#f92672">|</span>   <span style="color:#f92672">|</span>    <span style="color:#f92672">|</span>    <span style="color:#f92672">---</span> ...
+<span style="color:#f92672">|</span>   <span style="color:#f92672">|</span>    <span style="color:#f92672">+--</span> <span style="color:#a6e22e">pages</span>                          <span style="color:#f92672">---</span><span style="color:#a6e22e">页面组件</span>
+<span style="color:#f92672">|</span>   <span style="color:#f92672">|</span>    <span style="color:#f92672">|</span>    <span style="color:#f92672">---</span> ...
+<span style="color:#f92672">|</span>   <span style="color:#f92672">|</span>    <span style="color:#f92672">+--</span> <span style="color:#a6e22e">tables</span>                         <span style="color:#f92672">---</span><span style="color:#a6e22e">表格组件</span>
+<span style="color:#f92672">|</span>   <span style="color:#f92672">|</span>    <span style="color:#f92672">|</span>    <span style="color:#f92672">---</span> ...
+<span style="color:#f92672">|</span>   <span style="color:#f92672">|</span>    <span style="color:#f92672">+--</span> <span style="color:#a6e22e">ui</span>                             <span style="color:#f92672">---</span><span style="color:#a6e22e">ui组件</span>
+<span style="color:#f92672">|</span>   <span style="color:#f92672">|</span>    <span style="color:#f92672">|</span>    <span style="color:#f92672">---</span> ...
+<span style="color:#f92672">|</span>   <span style="color:#f92672">|</span>    <span style="color:#f92672">---</span> <span style="color:#a6e22e">BreadcrumbCustom</span>.<span style="color:#a6e22e">jsx</span>           <span style="color:#f92672">---</span><span style="color:#a6e22e">面包屑组件</span>
+<span style="color:#f92672">|</span>   <span style="color:#f92672">|</span>    <span style="color:#f92672">---</span> <span style="color:#a6e22e">HeaderCustom</span>.<span style="color:#a6e22e">jsx</span>               <span style="color:#f92672">---</span><span style="color:#a6e22e">顶部导航组件</span>
+<span style="color:#f92672">|</span>   <span style="color:#f92672">|</span>    <span style="color:#f92672">---</span> <span style="color:#a6e22e">Page</span>.<span style="color:#a6e22e">jsx</span>                       <span style="color:#f92672">---</span><span style="color:#a6e22e">页面容器</span>
+<span style="color:#f92672">|</span>   <span style="color:#f92672">|</span>    <span style="color:#f92672">---</span> <span style="color:#a6e22e">SiderCustom</span>.<span style="color:#a6e22e">jsx</span>                <span style="color:#f92672">---</span><span style="color:#a6e22e">左边菜单组件</span>
+<span style="color:#f92672">|</span>   <span style="color:#f92672">+--</span> <span style="color:#a6e22e">style</span>                               <span style="color:#f92672">---</span><span style="color:#a6e22e">项目的样式存放目录</span><span style="color:#960050;background-color:#1e0010">，</span><span style="color:#a6e22e">主要采用less编写</span>
+<span style="color:#f92672">|</span>   <span style="color:#f92672">+--</span> <span style="color:#a6e22e">utils</span>                               <span style="color:#f92672">---</span><span style="color:#a6e22e">工具文件存放目录</span>
+<span style="color:#f92672">|</span>   <span style="color:#f92672">---</span> <span style="color:#a6e22e">App</span>.<span style="color:#a6e22e">js</span>                              <span style="color:#f92672">---</span><span style="color:#a6e22e">组件入口文件</span>
+<span style="color:#f92672">|</span>   <span style="color:#f92672">---</span> <span style="color:#a6e22e">index</span>.<span style="color:#a6e22e">js</span>                            <span style="color:#f92672">---</span><span style="color:#a6e22e">项目的整体js入口文件</span><span style="color:#960050;background-color:#1e0010">，</span><span style="color:#a6e22e">包括路由配置等</span>
+<span style="color:#f92672">---</span> .<span style="color:#a6e22e">env</span>                                    <span style="color:#f92672">---</span><span style="color:#a6e22e">启动项目自定义端口配置文件</span>
+<span style="color:#f92672">---</span> .<span style="color:#a6e22e">eslintrc</span>                               <span style="color:#f92672">---</span><span style="color:#a6e22e">自定义eslint配置文件</span><span style="color:#960050;background-color:#1e0010">，</span><span style="color:#a6e22e">包括增加的react</span> <span style="color:#a6e22e">jsx语法限制</span>
+<span style="color:#f92672">---</span> <span style="color:#66d9ef">package</span>.<span style="color:#a6e22e">json</span>
+</code></pre></div>
+<p>React速成, 弄了4个晚上&hellip; 不说了, 最近事情太多.</p>
+
+<p>直接给</p>
+
+<p><a href="https://github.com/chenkangyang/oms">代码</a>
+<a href="https://njcky.gitee.io/oms/">预览地址</a></p></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://chenkangyang.github.io/tags/spring-boot"><span class="tag">Spring Boot</span></a></li>
+        
+          <li><a href="https://chenkangyang.github.io/tags/react"><span class="tag">React</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  
+<footer class="site-footer">
+  <p>© 2017-2019 Alex&#39;s Blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank" rel="noopener">Nuo</a>.</p>
+  
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/smooth-scroll@15.0.0/dist/smooth-scroll.min.js"></script>
+
+
+
+<script async src="https://cdn.jsdelivr.net/npm/video.js@7.3.0/dist/video.min.js"></script>
+
+
+
+
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    },
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+
+
+<script src="https://chenkangyang.github.io/scripts/index.min.js"></script>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('\/service-worker.js').then(function() {
+      console.log('[ServiceWorker] Registered');
+    });
+  }
+</script>
+
+
+
+
+
+
+
+
+  </body>
+</html>

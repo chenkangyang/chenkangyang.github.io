@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>STL容器的空间管理</title>
+
+  
+  
+  <link href="//cdn.jsdelivr.net" rel="dns-prefetch">
+  <link href="//cdnjs.cloudflare.com" rel="dns-prefetch">
+  
+  <link href="//at.alicdn.com" rel="dns-prefetch">
+  
+  <link href="//fonts.googleapis.com" rel="dns-prefetch">
+  <link href="//fonts.gstatic.com" rel="dns-prefetch">
+  
+  
+  
+  
+  
+
+  
+
+  
+  <meta name="author" content="Alex Chen">
+  <meta name="description" content="编程的时候遇到了内存空间访问的bug, 进而去了解了一下STL容器的内存空间管理, 写一篇总结
+">
+
+  
+  
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@gohugoio">
+    <meta name="twitter:title" content="STL容器的空间管理">
+    <meta name="twitter:description" content="编程的时候遇到了内存空间访问的bug, 进而去了解了一下STL容器的内存空间管理, 写一篇总结
+">
+    <meta name="twitter:image" content="/images/avatar.png">
+  
+
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="STL容器的空间管理">
+  <meta property="og:description" content="编程的时候遇到了内存空间访问的bug, 进而去了解了一下STL容器的内存空间管理, 写一篇总结
+">
+  <meta property="og:url" content="https://chenkangyang.github.io/post/stl_space_management/">
+  <meta property="og:image" content="/images/avatar.png">
+
+
+
+
+<meta name="generator" content="Hugo 0.52">
+
+
+<link rel="canonical" href="https://chenkangyang.github.io/post/stl_space_management/">
+
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="format-detection" content="telephone=no,email=no,adress=no">
+<meta http-equiv="Cache-Control" content="no-transform">
+
+
+<meta name="robots" content="index,follow">
+<meta name="referrer" content="origin-when-cross-origin">
+<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc">
+<meta name="msvalidate.01" content="22596E34341DD1D17D6022C44647E587">
+
+
+
+
+
+<meta name="theme-color" content="#02b875">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Alex&#39;s Blog">
+<meta name="msapplication-tooltip" content="Alex&#39;s Blog">
+<meta name='msapplication-navbutton-color' content="#02b875">
+<meta name="msapplication-TileColor" content="#02b875">
+<meta name="msapplication-TileImage" content="/icons/icon-144x144.png">
+<link rel="icon" href="https://chenkangyang.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://chenkangyang.github.io/icons/icon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://chenkangyang.github.io/icons/icon-32x32.png">
+<link rel="icon" sizes="192x192" href="https://chenkangyang.github.io/icons/icon-192x192.png">
+<link rel="apple-touch-icon" href="https://chenkangyang.github.io/icons/icon-152x152.png">
+<link rel="manifest" href="https://chenkangyang.github.io/manifest.json">
+
+
+<link rel="preload" href="https://chenkangyang.github.io/styles/main-rendered.min.css" as="style">
+
+
+<link rel="preload" href="https://fonts.googleapis.com/css?family=Lobster" as="style">
+<link rel="preload" href="https://chenkangyang.github.io/images/avatar.png" as="image">
+<link rel="preload" href="https://chenkangyang.github.io/images/grey-prism.svg" as="image">
+
+
+<style>
+  body {
+    background: rgb(244, 243, 241) url('/images/grey-prism.svg') repeat fixed;
+  }
+</style>
+<link rel="stylesheet" href="https://chenkangyang.github.io/styles/main-rendered.min.css">
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.2/dist/medium-zoom.min.js"></script>
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/video.js@7.3.0/dist/video-js.min.css">
+
+
+
+  
+  
+<!--[if lte IE 8]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/videojs-ie8@1.1.2/dist/videojs-ie8.min.js"></script>
+<![endif]-->
+
+<!--[if lte IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/eligrey-classlist-js-polyfill@1.2.20180112/classList.min.js"></script>
+<![endif]-->
+
+
+</head>
+  <body>
+    <div class="suspension">
+      <a role="button" aria-label="Go to top" title="Go to top" class="to-top is-hide"><span class="icon icon-up" aria-hidden="true"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://chenkangyang.github.io/images/avatar.png" alt="Avatar">
+  
+  <h2 class="title">Alex&#39;s Blog</h2>
+  
+  <p class="subtitle">~ It was the best of times, it was the worst of times. ~</p>
+  <button class="menu-toggle" type="button" aria-label="Main Menu" aria-expanded="false" tab-index="0">
+    <span class="icon icon-menu" aria-hidden="true"></span>
+  </button>
+
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+          
+          
+           is-active">
+          <a href="https://chenkangyang.github.io/">Home</a>
+        </li>
+      
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://github.com/chenkangyang">Github</a>
+        </li>
+      
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://chenkangyang.github.io/tags/">Tags</a>
+        </li>
+      
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://chenkangyang.github.io/about/">About</a>
+        </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list"><li class="social-item">
+          <a href="mailto:chenkangyang98@gmail.com" title="Email" aria-label="Email">
+            <span class="icon icon-email" aria-hidden="true"></span>
+          </a>
+        </li><li class="social-item">
+          <a href="//github.com/chenkangyang" rel="me" title="GitHub" aria-label="GitHub">
+	    <span class="icon icon-github" aria-hidden="true"></span>
+          </a>
+        </li><li class="social-item">
+          <a href="//weibo.com/%e6%b8%85%e6%b5%81%e5%a6%82%e6%88%91" rel="me" title="Weibo" aria-label="Weibo">
+            <span class="icon icon-weibo" aria-hidden="true"></span>
+          </a>
+        </li><li class="social-item">
+          <a href="https://chenkangyang.github.io/images/qrcode.jpeg" rel="me" title="Wechat" aria-label="Wechat">
+            <span class="icon icon-wechat" aria-hidden="true"></span>
+          </a>
+        </li></ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">STL容器的空间管理</h1>
+      <p class="post-meta">@Alex Chen · May 28, 2019 · 3 min read</p>
+    </header>
+    <article class="post-content"><p>编程的时候遇到了内存空间访问的bug, 进而去了解了一下STL容器的内存空间管理, 写一篇总结</p>
+
+<h3 id="stl容器">STL容器</h3>
+
+<h4 id="顺序容器">顺序容器</h4>
+
+<p>可变长动态数组 vector, 双端队列 deque, 双向链表 list</p>
+
+<h4 id="关联容器">关联容器</h4>
+
+<p>set, multiset, map, multimap
+set 存 value, map 存 key:value
+关联容器内的元素是有默认排序的, 例如set的默认为升序排序</p>
+
+<p>所有的容器都可以用迭代器 <code>iterator</code> 访问, 属于<code>知识和控制分离</code>的思想</p>
+
+<h3 id="问题描述1">问题描述1</h3>
+
+<p>在做编译原理&rdquo;文法的左递归消除&rdquo;的时候, 定义一个规则向量, <code>VN_vector</code> 存储所有的规则, 每一个规则为一个<code>class WF</code>, 两个变量: 文法左部: <code>string left</code>, 文法右部: <code>set&lt;string&gt; right</code> 表示可以有多个右部.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">class</span><span style="color:#960050;background-color:#1e0010"> </span><span style="color:#a6e22e">WF</span>
+{
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    string left; <span style="color:#75715e">// 文法左部
+</span><span style="color:#75715e"></span>    set<span style="color:#f92672">&lt;</span>string<span style="color:#f92672">&gt;</span> right; <span style="color:#75715e">// 文法右部 是一组string
+</span><span style="color:#75715e"></span>    WF () { <span style="color:#75715e">// 构造函数
+</span><span style="color:#75715e"></span>        cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;construction&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
+    }
+
+    WF (<span style="color:#66d9ef">const</span> string <span style="color:#f92672">&amp;</span>temp) { <span style="color:#75715e">// 拷贝构造函数, 传入文法左部
+</span><span style="color:#75715e"></span>        cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;copy construction&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
+        left <span style="color:#f92672">=</span> temp;
+        right.clear();
+    }
+
+    <span style="color:#f92672">~</span>WF () { <span style="color:#75715e">// 析构函数
+</span><span style="color:#75715e"></span>        cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;destruction&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
+    }
+
+    <span style="color:#66d9ef">void</span> print ( ) {
+        ...
+    }
+
+    <span style="color:#66d9ef">void</span> insertRight(<span style="color:#66d9ef">const</span> string <span style="color:#f92672">&amp;</span>temp) {
+        <span style="color:#75715e">// set 调用 insert 的时候是不会插入重复元素的
+</span><span style="color:#75715e"></span>        right.insert(temp);
+    }
+};
+
+vector <span style="color:#f92672">&lt;</span>WF<span style="color:#f92672">&gt;</span> VN_vector; <span style="color:#75715e">// 各规则向量
+</span><span style="color:#75715e"></span>map<span style="color:#f92672">&lt;</span>string, <span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> VN_dic; <span style="color:#75715e">// &lt;规则左部, 在VN_vector中的索引&gt;
+</span><span style="color:#75715e"></span></code></pre></div>
+<p>定义<code>set&lt;string&gt;&amp; right0 = VN_vector[0].right;</code>
+使用<code>iterator1</code>遍历<code>right0</code>时候, 向<code>VN_vector</code> <code>push_back</code>一个元素</p>
+
+<p>导致下一次<code>iterator2</code>遍历<code>right0</code>, 访问混乱, 大多数情况下会访问到<code>vector[1].right</code>中的元素</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">print_VN_vector</span> ()
+{
+    <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span> ; i <span style="color:#f92672">&lt;</span> VN_vector.size() ; i<span style="color:#f92672">++</span> )
+        VN_vector[i].print();
+    puts(<span style="color:#e6db74">&#34;&#34;</span>);
+}
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+
+    <span style="color:#75715e">/*******************插入vector[0]*******************/</span>
+
+    string left <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;A&#34;</span>; 
+	VN_vector.push_back(WF(left));
+	VN_dic[left] <span style="color:#f92672">=</span> VN_vector.size();
+	VN_vector[<span style="color:#ae81ff">0</span>].insertRight(<span style="color:#e6db74">&#34;bd&#34;</span>);
+	VN_vector[<span style="color:#ae81ff">0</span>].insertRight(<span style="color:#e6db74">&#34;e&#34;</span>);
+	VN_vector[<span style="color:#ae81ff">0</span>].insertRight(<span style="color:#e6db74">&#34;Aad&#34;</span>);
+	VN_vector[<span style="color:#ae81ff">0</span>].insertRight(<span style="color:#e6db74">&#34;Ac&#34;</span>);
+    <span style="color:#75715e">/*******************插入vector[0]*******************/</span>
+
+    <span style="color:#75715e">/*******************iterator遍历vector[0]时, 插入vector[1]*******************/</span>
+
+    <span style="color:#66d9ef">char</span> ch <span style="color:#f92672">=</span> VN_vector[<span style="color:#ae81ff">0</span>].left[<span style="color:#ae81ff">0</span>]; <span style="color:#75715e">// 左部
+</span><span style="color:#75715e"></span>    set<span style="color:#f92672">&lt;</span>string<span style="color:#f92672">&gt;&amp;</span> right1 <span style="color:#f92672">=</span> VN_vector[<span style="color:#ae81ff">0</span>].right; <span style="color:#75715e">// 右部
+</span><span style="color:#75715e"></span>    set<span style="color:#f92672">&lt;</span>string<span style="color:#f92672">&gt;::</span>iterator it1 <span style="color:#f92672">=</span> right1.begin(); <span style="color:#75715e">// 右部分迭代器
+</span><span style="color:#75715e"></span>    string new_left <span style="color:#f92672">=</span> VN_vector[<span style="color:#ae81ff">0</span>].left.substr(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>)<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\&#39;</span><span style="color:#e6db74">&#34;</span>; <span style="color:#75715e">// 新符号左部
+</span><span style="color:#75715e"></span>
+    WF wf <span style="color:#f92672">=</span> WF(new_left);
+    <span style="color:#66d9ef">for</span> ( ; it1 <span style="color:#f92672">!=</span> right1.end(); it1<span style="color:#f92672">++</span>) {
+        cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;it1 迭代器指向的值:&#34;</span> <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">*</span>it1 <span style="color:#f92672">&lt;&lt;</span> endl;
+        <span style="color:#66d9ef">if</span> (it1<span style="color:#f92672">-&gt;</span>at(<span style="color:#ae81ff">0</span>) <span style="color:#f92672">==</span> ch) {
+        	<span style="color:#75715e">// 向vector插入    A::=Aad|Ac|bd|e
+</span><span style="color:#75715e"></span>            VN_vector.push_back(wf);
+            VN_dic[new_left] <span style="color:#f92672">=</span> VN_vector.size();
+            cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;push_back success!&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
+            <span style="color:#66d9ef">break</span>;
+        }
+    }
+    <span style="color:#75715e">/*******************iterator遍历vector[0]时, 插入vector[1]*******************/</span>
+
+    <span style="color:#75715e">/*******************vector[1].right插入值*******************/</span>
+
+    <span style="color:#66d9ef">int</span> index <span style="color:#f92672">=</span> VN_dic[new_left] <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>; <span style="color:#75715e">// 新符号的索引
+</span><span style="color:#75715e"></span>	VN_vector[index].insertRight(<span style="color:#e6db74">&#34;222&#34;</span>);
+	VN_vector[index].insertRight(<span style="color:#e6db74">&#34;111&#34;</span>);
+    print_VN_vector();
+
+    <span style="color:#75715e">/*******************vector[1].right插入值*******************/</span>
+
+    <span style="color:#75715e">/*******************错误错误错误!!!!!*******************/</span>
+
+    set<span style="color:#f92672">&lt;</span>string<span style="color:#f92672">&gt;::</span>iterator it2 <span style="color:#f92672">=</span> right1.begin(); <span style="color:#75715e">// 右部分迭代器
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span> ( ; it2 <span style="color:#f92672">!=</span> right1.end(); it2<span style="color:#f92672">++</span>) {
+        cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;it2 迭代器指向的值:&#34;</span> <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">*</span>it2 <span style="color:#f92672">&lt;&lt;</span> endl;
+    }
+    <span style="color:#75715e">/*******************错误错误错误!!!!!*******************/</span>
+
+}
+</code></pre></div>
+<p>以上代码干的事情简单的来说: <code>vector</code>中存了一个个<code>set</code>, 使用<code>iterator1</code>遍历<code>vector[0]</code>的时候, 插入了<code>vector[1]</code>, 再使用<code>iterator2</code>遍历<code>vector[0]</code>的时候, 访问出错!</p>
+
+<p>先看一下输出了啥吧</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-zsh" data-lang="zsh">g++ xxx.cpp -o xxx
+
+第一次代码运行: 
+
+copy construction
+destruction
+copy construction
+it1 迭代器指向的值:Aad
+destruction
+push_back success!
+
+A::<span style="color:#f92672">=</span>Aad|Ac|bd|e
+A‘::<span style="color:#f92672">=</span><span style="color:#ae81ff">111</span>|<span style="color:#ae81ff">222</span>
+
+it2 迭代器指向的值:
+<span style="color:#f92672">[</span><span style="color:#ae81ff">1</span><span style="color:#f92672">]</span>    <span style="color:#ae81ff">1923</span> segmentation fault
+
+第二次代码运行: 
+
+copy construction
+destruction
+copy construction
+it1 迭代器指向的值:Aad
+destruction
+push_back success!
+
+A::<span style="color:#f92672">=</span>Aad|Ac|bd|e
+A‘::<span style="color:#f92672">=</span><span style="color:#ae81ff">111</span>|<span style="color:#ae81ff">222</span>
+
+it2 迭代器指向的值:111
+it2 迭代器指向的值:222
+it2 迭代器指向的值:���
+<span style="color:#f92672">[</span><span style="color:#ae81ff">1</span><span style="color:#f92672">]</span>    <span style="color:#ae81ff">1931</span> segmentation fault  
+
+第三次代码运行: 
+
+copy construction
+destruction
+copy construction
+it1 迭代器指向的值:Aad
+destruction
+push_back success!
+
+A::<span style="color:#f92672">=</span>Aad|Ac|bd|e
+A‘::<span style="color:#f92672">=</span><span style="color:#ae81ff">111</span>|<span style="color:#ae81ff">222</span>
+
+it2 迭代器指向的值:
+it2 迭代器指向的值:ultMallocZone 省略......HOME/Users/alex/anaconda/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin:/usr/local/go/bin:/Users/alex/anaconda/bin:/usr/local/mysql/bin:/usr/local/mysql/binp 省略......
+<span style="color:#f92672">[</span><span style="color:#ae81ff">1</span><span style="color:#f92672">]</span>    <span style="color:#ae81ff">1939</span> segmentation fault  </code></pre></div>
+<p>首先发现每次运行<code>iterator2</code>指向的地址都不一样! 第二次代码运行还正常点, 第三次代码运行的时候, 居然输出了一大大大大大长串, 其中我居然发现了系统的环境变量, 这是指向了哪里!? 因此初步分析, 一定是<code>iterator</code>和<code>vector</code>出现了问题</p>
+
+<h3 id="问题原因分析">问题原因分析</h3>
+
+<ul>
+<li>对<code>vector</code>插入元素之后, 之前的指向此vector的<code>iterator</code>会失效</li>
+</ul>
+
+<p><code>vector</code>中的内存空间是连续存放的, 援引C++ Primer：为了支持快速的随机访问，<code>vector</code>容器的元素以连续方式存放，每一个元素都紧挨着前一个元素存储。</p>
+
+<p>因此, <code>vector</code>初始化的时候会多分配一些<strong>连续的地址空间</strong>, 当执行插入操作, 例如 <code>vector.push_back()</code> 时, 之后的空间若被占用, vector就会将<strong>当前地址中的内容以及新插入的内容搬移到其他空闲的空间中去</strong>, 那么指向原本<code>vector</code>的指针都不会访问到正常值了. 例如代码中的<code>right1</code>以及指向<code>right1</code>的所有<code>iterator</code></p>
+
+<h3 id="解决方案">解决方案</h3>
+
+<p>修改<code>it2</code>, 使其指向&rdquo;新&rdquo;的<code>vector</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++">set<span style="color:#f92672">&lt;</span>string<span style="color:#f92672">&gt;&amp;</span> _right1 <span style="color:#f92672">=</span> VN_vector[<span style="color:#ae81ff">0</span>].right; <span style="color:#75715e">// 插入新元素后的vector右部
+</span><span style="color:#75715e"></span>set<span style="color:#f92672">&lt;</span>string<span style="color:#f92672">&gt;::</span>iterator it2 <span style="color:#f92672">=</span> _right1.begin(); <span style="color:#75715e">// 右部分迭代器
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">for</span> ( ; it2 <span style="color:#f92672">!=</span> _right1.end(); it2<span style="color:#f92672">++</span>) {
+    cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;it2 迭代器指向的值:&#34;</span> <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">*</span>it2 <span style="color:#f92672">&lt;&lt;</span> endl;
+}
+</code></pre></div>
+<p>输出:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-zsh" data-lang="zsh">copy construction
+destruction
+copy construction
+it1 迭代器指向的值:Aad
+destruction
+push_back success!
+
+A::<span style="color:#f92672">=</span>Aad|Ac|bd|e
+A‘::<span style="color:#f92672">=</span><span style="color:#ae81ff">111</span>|<span style="color:#ae81ff">222</span>
+
+it2 迭代器指向的值:Aad
+it2 迭代器指向的值:Ac
+it2 迭代器指向的值:bd
+it2 迭代器指向的值:e
+destruction
+destruction
+destruction</code></pre></div>
+<h3 id="问题描述2">问题描述2</h3>
+
+<p>用<code>iterator</code>删除<code>set</code>的元素失败!</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">for</span> ( ; it2 <span style="color:#f92672">!=</span> _right1.end(); it2<span style="color:#f92672">++</span>) {
+    cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;it2 迭代器指向的值:&#34;</span> <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">*</span>it2 <span style="color:#f92672">&lt;&lt;</span> endl;
+    cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;删除: &#34;</span><span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">*</span>it2 <span style="color:#f92672">&lt;&lt;</span> endl;
+    _right1.erase(it2);
+    cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;删除成功&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
+    cout <span style="color:#f92672">&lt;&lt;</span> _right1.size() <span style="color:#f92672">&lt;&lt;</span> endl;
+}
+</code></pre></div>
+<p>用迭代器遍历<code>A::=Aad|Ac|bd|e</code>输出:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-zsh" data-lang="zsh">t2 迭代器指向的值:Aad
+删除老符号: Aad
+删除成功
+<span style="color:#ae81ff">3</span>
+it2 迭代器指向的值:bd
+删除老符号: bd
+删除成功
+<span style="color:#ae81ff">2</span>
+<span style="color:#f92672">[</span><span style="color:#ae81ff">1</span><span style="color:#f92672">]</span>    <span style="color:#ae81ff">2563</span> segmentation fault</code></pre></div>
+<p>如果在for, while循环中对容器迭代, 删除其中符合条件的所有元素, 就可能出现问题。
+传给<code>erase</code>的是一个<code>it2</code>的副本, 删除当前的<code>it2</code>, <code>it2</code>及其后面的迭代器已经失效了, 不应该再使用这些迭代器了, 再执行<code>it2++</code>, 其行为是未定义的。其它容器也会遇到迭代器失效的问题。</p>
+
+<p>修改为:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">for</span> ( ; it2 <span style="color:#f92672">!=</span> _right1.end(); ) {
+    cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;it2 迭代器指向的值:&#34;</span> <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">*</span>it2 <span style="color:#f92672">&lt;&lt;</span> endl;
+    cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;删除老符号: &#34;</span><span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">*</span>it2 <span style="color:#f92672">&lt;&lt;</span> endl;
+    _right1.erase(it2<span style="color:#f92672">++</span>);
+    cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;删除成功&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
+    cout <span style="color:#f92672">&lt;&lt;</span> _right1.size() <span style="color:#f92672">&lt;&lt;</span> endl;
+}
+</code></pre></div>
+<p>或者</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">while</span> (<span style="color:#f92672">!</span>_right1.empty()) {
+    cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;删除老符号:&#34;</span><span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">*</span>_right1.begin() <span style="color:#f92672">&lt;&lt;</span> endl;
+    _right1.erase(_right1.begin());
+    cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;删除成功&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
+}
+</code></pre></div>
+<h4 id="补充关于set容器的知识点">补充关于set容器的知识点</h4>
+
+<p><code>set</code>和<code>map</code>的<code>erase</code>和<code>clear</code>不能&rdquo;马上&rdquo;释放内存. <code>map</code>有自己的机制回收内存，用<code>erase</code>以及<code>clear</code>之后，如果没有特殊需求，可以认为那部分内存已经释放了. <code>map</code>不会马上释放删掉内容的内存, 而是会对内存进行&rdquo;预留&rdquo;, 如果确实很长时间用不到预留的内存, 才会释放.</p></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://chenkangyang.github.io/tags/stl"><span class="tag">STL</span></a></li>
+        
+          <li><a href="https://chenkangyang.github.io/tags/c&#43;&#43;"><span class="tag">C&#43;&#43;</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  
+<footer class="site-footer">
+  <p>© 2017-2019 Alex&#39;s Blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank" rel="noopener">Nuo</a>.</p>
+  
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/smooth-scroll@15.0.0/dist/smooth-scroll.min.js"></script>
+
+
+
+<script async src="https://cdn.jsdelivr.net/npm/video.js@7.3.0/dist/video.min.js"></script>
+
+
+
+
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    },
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+
+
+<script src="https://chenkangyang.github.io/scripts/index.min.js"></script>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('\/service-worker.js').then(function() {
+      console.log('[ServiceWorker] Registered');
+    });
+  }
+</script>
+
+
+
+
+
+
+
+
+  </body>
+</html>

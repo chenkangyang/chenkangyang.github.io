@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>React on Alex&#39;s Blog</title>
-    <link>https://chenkangyang.github.io/tags/react/</link>
-    <description>Recent content in React on Alex&#39;s Blog</description>
+    <title>Spring Boot on Alex&#39;s Blog</title>
+    <link>https://chenkangyang.github.io/tags/spring-boot/</link>
+    <description>Recent content in Spring Boot on Alex&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
     <lastBuildDate>Tue, 04 Jun 2019 11:05:11 +0800</lastBuildDate>
     
-	<atom:link href="https://chenkangyang.github.io/tags/react/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://chenkangyang.github.io/tags/spring-boot/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -19,15 +19,6 @@
       
       <guid>https://chenkangyang.github.io/post/react_spring/</guid>
       <description>&lt;p&gt;前端React, 后端Spring Boot开发一个&lt;a href=&#34;https://njcky.gitee.io/oms/&#34;&gt;订单管理系统&lt;/a&gt;, 前端接口仍使用mock提供的静态假数据, 未完待续.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>React 快速入门</title>
-      <link>https://chenkangyang.github.io/post/react_demo/</link>
-      <pubDate>Tue, 07 May 2019 17:50:32 +0800</pubDate>
-      
-      <guid>https://chenkangyang.github.io/post/react_demo/</guid>
-      <description>&lt;p&gt;初次使用React&lt;/p&gt;</description>
     </item>
     
   </channel>

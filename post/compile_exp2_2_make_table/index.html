@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>构造文法的预测分析表</title>
+
+  
+  
+  <link href="//cdn.jsdelivr.net" rel="dns-prefetch">
+  <link href="//cdnjs.cloudflare.com" rel="dns-prefetch">
+  
+  <link href="//at.alicdn.com" rel="dns-prefetch">
+  
+  <link href="//fonts.googleapis.com" rel="dns-prefetch">
+  <link href="//fonts.gstatic.com" rel="dns-prefetch">
+  
+  
+  
+  
+  
+
+  
+
+  
+  <meta name="author" content="Alex Chen">
+  <meta name="description" content="深度优先遍历的方法构造文法的FIRST集, 未完待续
+">
+
+  
+  
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@gohugoio">
+    <meta name="twitter:title" content="构造文法的预测分析表">
+    <meta name="twitter:description" content="深度优先遍历的方法构造文法的FIRST集, 未完待续
+">
+    <meta name="twitter:image" content="/images/avatar.png">
+  
+
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="构造文法的预测分析表">
+  <meta property="og:description" content="深度优先遍历的方法构造文法的FIRST集, 未完待续
+">
+  <meta property="og:url" content="https://chenkangyang.github.io/post/compile_exp2_2_make_table/">
+  <meta property="og:image" content="/images/avatar.png">
+
+
+
+
+<meta name="generator" content="Hugo 0.52">
+
+
+<link rel="canonical" href="https://chenkangyang.github.io/post/compile_exp2_2_make_table/">
+
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="format-detection" content="telephone=no,email=no,adress=no">
+<meta http-equiv="Cache-Control" content="no-transform">
+
+
+<meta name="robots" content="index,follow">
+<meta name="referrer" content="origin-when-cross-origin">
+<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc">
+<meta name="msvalidate.01" content="22596E34341DD1D17D6022C44647E587">
+
+
+
+
+
+<meta name="theme-color" content="#02b875">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Alex&#39;s Blog">
+<meta name="msapplication-tooltip" content="Alex&#39;s Blog">
+<meta name='msapplication-navbutton-color' content="#02b875">
+<meta name="msapplication-TileColor" content="#02b875">
+<meta name="msapplication-TileImage" content="/icons/icon-144x144.png">
+<link rel="icon" href="https://chenkangyang.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://chenkangyang.github.io/icons/icon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://chenkangyang.github.io/icons/icon-32x32.png">
+<link rel="icon" sizes="192x192" href="https://chenkangyang.github.io/icons/icon-192x192.png">
+<link rel="apple-touch-icon" href="https://chenkangyang.github.io/icons/icon-152x152.png">
+<link rel="manifest" href="https://chenkangyang.github.io/manifest.json">
+
+
+<link rel="preload" href="https://chenkangyang.github.io/styles/main-rendered.min.css" as="style">
+
+
+<link rel="preload" href="https://fonts.googleapis.com/css?family=Lobster" as="style">
+<link rel="preload" href="https://chenkangyang.github.io/images/avatar.png" as="image">
+<link rel="preload" href="https://chenkangyang.github.io/images/grey-prism.svg" as="image">
+
+
+<style>
+  body {
+    background: rgb(244, 243, 241) url('/images/grey-prism.svg') repeat fixed;
+  }
+</style>
+<link rel="stylesheet" href="https://chenkangyang.github.io/styles/main-rendered.min.css">
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.2/dist/medium-zoom.min.js"></script>
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/video.js@7.3.0/dist/video-js.min.css">
+
+
+
+  
+  
+<!--[if lte IE 8]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/videojs-ie8@1.1.2/dist/videojs-ie8.min.js"></script>
+<![endif]-->
+
+<!--[if lte IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/eligrey-classlist-js-polyfill@1.2.20180112/classList.min.js"></script>
+<![endif]-->
+
+
+</head>
+  <body>
+    <div class="suspension">
+      <a role="button" aria-label="Go to top" title="Go to top" class="to-top is-hide"><span class="icon icon-up" aria-hidden="true"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://chenkangyang.github.io/images/avatar.png" alt="Avatar">
+  
+  <h2 class="title">Alex&#39;s Blog</h2>
+  
+  <p class="subtitle">~ It was the best of times, it was the worst of times. ~</p>
+  <button class="menu-toggle" type="button" aria-label="Main Menu" aria-expanded="false" tab-index="0">
+    <span class="icon icon-menu" aria-hidden="true"></span>
+  </button>
+
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+          
+          
+           is-active">
+          <a href="https://chenkangyang.github.io/">Home</a>
+        </li>
+      
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://github.com/chenkangyang">Github</a>
+        </li>
+      
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://chenkangyang.github.io/tags/">Tags</a>
+        </li>
+      
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://chenkangyang.github.io/about/">About</a>
+        </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list"><li class="social-item">
+          <a href="mailto:chenkangyang98@gmail.com" title="Email" aria-label="Email">
+            <span class="icon icon-email" aria-hidden="true"></span>
+          </a>
+        </li><li class="social-item">
+          <a href="//github.com/chenkangyang" rel="me" title="GitHub" aria-label="GitHub">
+	    <span class="icon icon-github" aria-hidden="true"></span>
+          </a>
+        </li><li class="social-item">
+          <a href="//weibo.com/%e6%b8%85%e6%b5%81%e5%a6%82%e6%88%91" rel="me" title="Weibo" aria-label="Weibo">
+            <span class="icon icon-weibo" aria-hidden="true"></span>
+          </a>
+        </li><li class="social-item">
+          <a href="https://chenkangyang.github.io/images/qrcode.jpeg" rel="me" title="Wechat" aria-label="Wechat">
+            <span class="icon icon-wechat" aria-hidden="true"></span>
+          </a>
+        </li></ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">构造文法的预测分析表</h1>
+      <p class="post-meta">@Alex Chen · May 28, 2019 · 1 min read</p>
+    </header>
+    <article class="post-content"><p>深度优先遍历的方法构造文法的<code>FIRST集</code>, 未完待续</p>
+
+<p>接<a href="http://nuptalex.xyz/post/compile_exp2_1_remove_left_recursive/">上一篇</a></p>
+
+<h3 id="构造first集">构造FIRST集</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++">map<span style="color:#f92672">&lt;</span>string, set<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">char</span><span style="color:#f92672">&gt;</span> <span style="color:#f92672">&gt;</span> first;
+map<span style="color:#f92672">&lt;</span>string, set<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">char</span><span style="color:#f92672">&gt;</span> <span style="color:#f92672">&gt;</span> follow;
+<span style="color:#66d9ef">bool</span> used[MAX];
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">dfs</span>(<span style="color:#66d9ef">int</span> x)
+{
+    <span style="color:#66d9ef">if</span> (used[x])
+        <span style="color:#66d9ef">return</span>;
+    used[x] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+    string <span style="color:#f92672">&amp;</span>left <span style="color:#f92672">=</span> VN_set[x].left;
+    set<span style="color:#f92672">&lt;</span>string<span style="color:#f92672">&gt;</span> <span style="color:#f92672">&amp;</span>right <span style="color:#f92672">=</span> VN_set[x].right;
+    set<span style="color:#f92672">&lt;</span>string<span style="color:#f92672">&gt;::</span>iterator it <span style="color:#f92672">=</span> right.begin();
+    <span style="color:#66d9ef">for</span> (; it <span style="color:#f92672">!=</span> right.end(); it<span style="color:#f92672">++</span>)
+        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> it<span style="color:#f92672">-&gt;</span>length(); i<span style="color:#f92672">++</span>)
+        {
+            <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>isupper(it<span style="color:#f92672">-&gt;</span>at(i)) <span style="color:#f92672">&amp;&amp;</span> it<span style="color:#f92672">-&gt;</span>at(i) <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#39;\&#39;&#39;</span>)
+            {
+                first[left].insert(it<span style="color:#f92672">-&gt;</span>at(i));
+                <span style="color:#66d9ef">break</span>;
+            }
+            <span style="color:#66d9ef">if</span> (isupper(it<span style="color:#f92672">-&gt;</span>at(i)))
+            {
+                <span style="color:#66d9ef">int</span> y;
+                <span style="color:#66d9ef">if</span> (i <span style="color:#f92672">!=</span> it<span style="color:#f92672">-&gt;</span>length() <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">&amp;&amp;</span> it<span style="color:#f92672">-&gt;</span>at(i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;\&#39;&#39;</span>)
+                    y <span style="color:#f92672">=</span> VN_dic[it<span style="color:#f92672">-&gt;</span>substr(i, <span style="color:#ae81ff">2</span>)] <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
+                <span style="color:#66d9ef">else</span>
+                    y <span style="color:#f92672">=</span> VN_dic[it<span style="color:#f92672">-&gt;</span>substr(i, <span style="color:#ae81ff">1</span>)] <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
+                string <span style="color:#f92672">&amp;</span>tleft <span style="color:#f92672">=</span> VN_set[y].left;
+                dfs(y);
+                set<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">char</span><span style="color:#f92672">&gt;</span> <span style="color:#f92672">&amp;</span>temp <span style="color:#f92672">=</span> first[tleft];
+                set<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">char</span><span style="color:#f92672">&gt;::</span>iterator it1 <span style="color:#f92672">=</span> temp.begin();
+                <span style="color:#66d9ef">bool</span> flag <span style="color:#f92672">=</span> true;
+                <span style="color:#66d9ef">for</span> (; it1 <span style="color:#f92672">!=</span> temp.end(); it1<span style="color:#f92672">++</span>)
+                {
+                    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">*</span>it1 <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;~&#39;</span>)
+                        flag <span style="color:#f92672">=</span> false;
+                    first[left].insert(<span style="color:#f92672">*</span>it1);
+                }
+                <span style="color:#66d9ef">if</span> (flag)
+                    <span style="color:#66d9ef">break</span>;
+            }
+            <span style="color:#66d9ef">else</span>
+                <span style="color:#66d9ef">continue</span>;
+        }
+}
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">make_first</span>()
+{
+    memset(used, <span style="color:#ae81ff">0</span>, <span style="color:#66d9ef">sizeof</span>(used));
+    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> VN_set.size(); i<span style="color:#f92672">++</span>)
+        dfs(i);
+<span style="color:#75715e">#define DEBUG
+</span><span style="color:#75715e">#ifdef DEBUG
+</span><span style="color:#75715e"></span>    map<span style="color:#f92672">&lt;</span>string, set<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">char</span><span style="color:#f92672">&gt;</span> <span style="color:#f92672">&gt;::</span>iterator it <span style="color:#f92672">=</span> first.begin();
+    <span style="color:#66d9ef">for</span> (; it <span style="color:#f92672">!=</span> first.end(); it<span style="color:#f92672">++</span>)
+    {
+        printf(<span style="color:#e6db74">&#34;FIRST(%s)={&#34;</span>, it<span style="color:#f92672">-&gt;</span>first.c_str());
+        set<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">char</span><span style="color:#f92672">&gt;</span> <span style="color:#f92672">&amp;</span>temp <span style="color:#f92672">=</span> it<span style="color:#f92672">-&gt;</span>second;
+        set<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">char</span><span style="color:#f92672">&gt;::</span>iterator it1 <span style="color:#f92672">=</span> temp.begin();
+        <span style="color:#66d9ef">bool</span> flag <span style="color:#f92672">=</span> false;
+        <span style="color:#66d9ef">for</span> (; it1 <span style="color:#f92672">!=</span> temp.end(); it1<span style="color:#f92672">++</span>)
+        {
+            <span style="color:#66d9ef">if</span> (flag)
+                printf(<span style="color:#e6db74">&#34;,&#34;</span>);
+            printf(<span style="color:#e6db74">&#34;%c&#34;</span>, <span style="color:#f92672">*</span>it1);
+            flag <span style="color:#f92672">=</span> true;
+        }
+        puts(<span style="color:#e6db74">&#34;}&#34;</span>);
+    }
+<span style="color:#75715e">#endif
+</span><span style="color:#75715e"></span>}
+</code></pre></div>
+<p>dfs算法如图所示</p>
+
+<p><img src="http://blog.nuptalex.xyz/IMG_0022.PNG" alt="IMG_0022.PNG" /></p>
+
+<h3 id="构造follow集">构造FOLLOW集</h3></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://chenkangyang.github.io/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86"><span class="tag">编译原理</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  
+<footer class="site-footer">
+  <p>© 2017-2019 Alex&#39;s Blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank" rel="noopener">Nuo</a>.</p>
+  
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/smooth-scroll@15.0.0/dist/smooth-scroll.min.js"></script>
+
+
+
+<script async src="https://cdn.jsdelivr.net/npm/video.js@7.3.0/dist/video.min.js"></script>
+
+
+
+
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    },
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+
+
+<script src="https://chenkangyang.github.io/scripts/index.min.js"></script>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('\/service-worker.js').then(function() {
+      console.log('[ServiceWorker] Registered');
+    });
+  }
+</script>
+
+
+
+
+
+
+
+
+  </body>
+</html>
